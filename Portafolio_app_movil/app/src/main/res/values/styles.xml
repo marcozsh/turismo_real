@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SplashScreen" parent="Theme.TurismoReal">
+        <item name="android:windowBackground">@mipmap/ic_iconoprincipal</item>
+        <item name="android:icon">@mipmap/ic_iconoprincipal</item>
+    </style>
+</resources>
