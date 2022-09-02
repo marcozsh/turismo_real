@@ -5,4 +5,7 @@
     <string name="password">\u0020\u0020Contraseña</string>
     <string name="forgotpassword">Olvidó su contraseña?</string>
     <string name="welcome_main_page">Bienvenido!</string>
+    <string name="employees">Funcionarios</string>
+    <string name="analytics">Reportes</string>
+    <string name="client">Clientes</string>
 </resources>
