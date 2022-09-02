@@ -38,11 +38,12 @@
         tools:text="@string/welcome" />
 
     <Button
-        android:id="@+id/btnIniciarSesion"
+        android:id="@+id/btnLogin"
         android:layout_width="296dp"
         android:layout_height="50dp"
         android:layout_marginTop="200dp"
         android:layout_weight="1"
+        android:onClick="buttonConnectToOracleDB"
         android:text="@string/welcome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,13 +62,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:drawableLeft="@drawable/mail"
             android:ems="10"
-            android:hint="@string/email"
+            android:hint="@string/username"
             android:inputType="textEmailAddress"
             android:selectAllOnFocus="true"
             android:textAlignment="viewStart"

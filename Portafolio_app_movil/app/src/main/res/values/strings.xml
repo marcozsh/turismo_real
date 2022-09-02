@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Turismo Real</string>
     <string name="welcome">Iniciar sessión</string>
-    <string name="email">\u0020\u0020Email</string>
+    <string name="username">\u0020\u0020Usuario</string>
     <string name="password">\u0020\u0020Contraseña</string>
     <string name="forgotpassword">Olvidó su contraseña?</string>
     <string name="welcome_main_page">Bienvenido!</string>
