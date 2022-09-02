@@ -38,7 +38,7 @@
         tools:text="@string/welcome" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnReportes"
         android:layout_width="296dp"
         android:layout_height="50dp"
         android:layout_marginTop="200dp"

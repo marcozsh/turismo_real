@@ -26,7 +26,7 @@ public class splashScreen extends AppCompatActivity {
     private static final String PASSWORD = "123";
     private static Connection connection;
 
-    private String session_id;
+    private Integer session_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,11 +40,11 @@ public class splashScreen extends AppCompatActivity {
             try{
                 connection = getConn();
                 Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT session_id FROM employee_session WHERE user_id = 1");
+                ResultSet resultSet = statement.executeQuery("SELECT count(session_id) FROM employee_session WHERE user_id = 1");
                 while (resultSet.next()){
-                    session_id = resultSet.getString(1).toUpperCase();
+                    session_id = Integer.parseInt(resultSet.getString(1));
                 }
-                if (session_id.equals("NO SESSION")){
+                if (session_id <= 0){
                     Intent i = new Intent(this, login.class);
                     startActivity(i);
                     connection.close();
@@ -58,6 +58,7 @@ public class splashScreen extends AppCompatActivity {
                 }
             }
             catch (Exception e){
+                System.out.println(e.getMessage());
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
