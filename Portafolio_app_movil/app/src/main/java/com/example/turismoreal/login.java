@@ -10,9 +10,6 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-//conn class
-import com.example.turismoreal.oracleConnection;
-
 //sql imports
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,11 +31,7 @@ public class login extends AppCompatActivity {
     //private static final String URL = "jdbc:oracle:thin:@192.168.0.6:1522:XE";
     //private static final String USERNAME = "turismo_real_dev";
     //private static final String PASSWORD = "123";
-    private Connection connection;
-
-    {
-        connection = oracleConnection.getConn();
-    }
+    private Connection connection = splashScreen.getConn();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
