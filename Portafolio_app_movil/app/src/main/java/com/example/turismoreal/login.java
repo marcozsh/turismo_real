@@ -2,7 +2,9 @@ package com.example.turismoreal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -47,6 +49,17 @@ public class login extends AppCompatActivity {
         StrictMode.setThreadPolicy(threadPolicy);
 
     }
+
+    private void saveSession(Integer userId, String fullName, String userRol, String sessionId ){
+        SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("userId", userId);
+        editor.putString("fullName", fullName);
+        editor.putString("userRol", userRol);
+        editor.putString("sessionId", sessionId);
+        editor.commit();
+    }
+
     public void buttonConnectToOracleDB(View view){
         String username = user.getText().toString();
         String pass =password.getText().toString();
@@ -60,7 +73,20 @@ public class login extends AppCompatActivity {
                 connection.commit();
                 //Toast.makeText(this, user_id.toString(), Toast.LENGTH_LONG).show();
                 if (user_id > 0){
-                    Toast.makeText(this, "Bienvenido!", Toast.LENGTH_LONG).show();
+                    Statement sql2 = connection.createStatement();
+                    ResultSet result = sql2.executeQuery("SELECT \n" +
+                            "    e.name || ' ' || e.last_name as \"full_name\"\n" +
+                            "    ,et.position\n" +
+                            "    ,es.session_id\n" +
+                            "FROM employee_session es\n" +
+                            "JOIN employee e ON es.user_id = e.id\n" +
+                            "JOIN employee_type et ON e.employee_type_id = et.id\n" +
+                            "WHERE es.user_id = " + user_id);
+
+                    while (result.next()){
+                        saveSession(user_id, result.getString(1),result.getString(2),result.getString(3));
+                    }
+                    Toast.makeText(this, "Bienvenido!", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(this, landing_page.class);
                     startActivity(i);
                     connection.close();

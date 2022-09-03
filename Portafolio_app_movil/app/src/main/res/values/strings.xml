@@ -7,5 +7,12 @@
     <string name="welcome_main_page">Bienvenido!</string>
     <string name="employees">Funcionarios</string>
     <string name="analytics">Reportes</string>
+    <string name="deparments">Departamentos</string>
+    <string name="tour">Tours</string>
+    <string name="extra_services">Servicios Extras</string>
+    <string name="profile">Perfil</string>
     <string name="client">Clientes</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+
 </resources>
