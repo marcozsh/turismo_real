@@ -50,7 +50,7 @@ public class landing_page extends AppCompatActivity {
         fullName = findViewById(R.id.userName);
         userRol.setText(rol);
         fullName.setText(userName);
-        userId = user_id;
+        user_id = userId;
     }
 
     public void popOutLogout(View view){
@@ -90,9 +90,16 @@ public class landing_page extends AppCompatActivity {
             Intent i = new Intent(landing_page.this, login.class);
             startActivity(i);
             finish();
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
         }
+    }
+
+
+
+    public void extraServicesMenu(View view){
+        Intent i = new Intent(this, extra_services.class);
+        startActivity(i);
+        finish();
     }
 }

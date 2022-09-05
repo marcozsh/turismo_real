@@ -14,5 +14,6 @@
     <string name="client">Clientes</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
+    <string name="add">Agregar</string>
 
 </resources>

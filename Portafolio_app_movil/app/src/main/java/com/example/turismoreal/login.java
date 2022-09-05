@@ -75,7 +75,7 @@ public class login extends AppCompatActivity {
                 if (user_id > 0){
                     Statement sql2 = connection.createStatement();
                     ResultSet result = sql2.executeQuery("SELECT \n" +
-                            "    e.name || ' ' || e.last_name as \"full_name\"\n" +
+                            "    INITCAP(e.name) || ' ' || INITCAP(e.last_name) as \"full_name\"\n" +
                             "    ,et.position\n" +
                             "    ,es.session_id\n" +
                             "FROM employee_session es\n" +

@@ -34,47 +34,46 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/layoutLandingPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.059" />
+        app:layout_constraintVertical_bias="0.716" />
 
     <Button
         android:id="@+id/btnReportes"
         android:layout_width="320dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="200dp"
         android:layout_weight="1"
         android:text="@string/analytics"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <Button
         android:id="@+id/btnFuncionarios"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginTop="200dp"
         android:layout_weight="1"
         android:text="@string/employees"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnClientes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnReportes" />
 
     <Button
         android:id="@+id/btnClientes"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginTop="300dp"
         android:layout_weight="1"
         android:text="@string/client"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutLandingPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btnReportes" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -124,15 +123,14 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="68dp"
         android:background="@color/black"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutLandingPage"
         app:layout_constraintVertical_bias="1.0">
 
         <ImageView
@@ -154,6 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="extraServicesMenu"
             app:srcCompat="@drawable/ic_baseline_commute_24" />
 
         <ImageView
@@ -164,69 +163,5 @@
             app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#000000"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/departmetns"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:foregroundTint="#FFFFFF"
-                android:text="@string/deparments"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/toursText"
-                android:layout_width="47dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="44dp"
-                android:text="@string/tour"
-                android:textAlignment="textEnd"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp" />
-
-            <TextView
-                android:id="@+id/extraServices"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="52dp"
-                android:text="@string/extra_services"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp" />
-
-            <TextView
-                android:id="@+id/profileText"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="36dp"
-                android:text="@string/profile"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp" />
-        </LinearLayout>
-
-    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
