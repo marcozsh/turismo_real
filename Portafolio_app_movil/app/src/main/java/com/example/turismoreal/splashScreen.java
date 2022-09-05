@@ -50,13 +50,22 @@ public class splashScreen extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
 
+
+                Integer id =preferences.getInt("userId", 0);
+
+                if (id == 0){
+                    Intent i = new Intent(this, login.class);
+                    startActivity(i);
+                    finish();
+                }
+
                 connection = getConn();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT \n" +
                                                                     "CASE \n" +
-                                                                    "    WHEN (SELECT count(session_id) FROM employee_session WHERE user_id = "+preferences.getInt("userId", 0)+" ) <= 0 \n" +
+                                                                    "    WHEN (SELECT count(session_id) FROM employee_session WHERE user_id = "+id+" ) <= 0 \n" +
                                                                     "    THEN 'UNREGISTER' \n" +
-                                                                    "    ELSE (SELECT session_id FROM employee_session WHERE user_id = "+preferences.getInt("userId", 0)+" ) END AS \"session_id\" FROM DUAL\n");
+                                                                    "    ELSE (SELECT session_id FROM employee_session WHERE user_id = "+id+" ) END AS \"session_id\" FROM DUAL\n");
                 while (resultSet.next()){
                     session_id = resultSet.getString(1);
                 }
