@@ -49,6 +49,7 @@ public class splashScreen extends AppCompatActivity {
             try{
                 SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
+
                 connection = getConn();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT \n" +
