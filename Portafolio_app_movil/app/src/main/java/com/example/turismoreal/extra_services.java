@@ -19,6 +19,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.turismoreal.Services.ExtraServices;
+import com.example.turismoreal.models.ExtraService;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,6 +29,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+
+import pl.droidsonroids.gif.GifTextView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class extra_services extends AppCompatActivity {
 
@@ -34,129 +45,121 @@ public class extra_services extends AppCompatActivity {
     private TableRow atributeRow;
     private TableRow spaceRow;
     private TableRow valueRow;
-
-    private Connection connection = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_TurismoReal);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extra_services);
         principalLayout = findViewById(R.id.principalLayout);
+        try {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(splashScreen.URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
+            ExtraServices extraServices = retrofit.create(ExtraServices.class);
+            Call<List<ExtraService>> AllServices = extraServices.getExtraServices();
+            AllServices.enqueue(new Callback<List<ExtraService>>() {
 
-        try{
-            Statement sql2 = connection.createStatement();
-            ResultSet result = sql2.executeQuery("\n" +
-                    "SELECT name, price, nvl(location, 'SIN REGISTRO') as location,\n" +
-                    "       CASE \n" +
-                    "       WHEN available = 1 THEN 'Disponible'\n" +
-                    "       ELSE 'No Disponible'\n" +
-                    "       END as available\n" +
-                    "FROM service ORDER BY id");
+                @Override
+                public void onResponse(Call<List<ExtraService>> call, Response<List<ExtraService>> response) {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(extra_services.this, response.code(), Toast.LENGTH_LONG);
+                        return;
+                    }
+                    List<ExtraService> allServices = response.body();
+                    for (ExtraService services : allServices) {
+                        //title
+                        TableLayout titleTableLauout = new TableLayout(extra_services.this);
+                        TableRow titleBox = new TableRow(extra_services.this);
+                        TextView nombre = new TextView(extra_services.this);
 
+                        nombre.setText(services.getName());
+                        nombre.setTextColor(Color.parseColor("#0090FF"));
 
-            JSONObject servicesName = null;
-            ArrayList<JSONObject>  titles = new ArrayList<JSONObject>();
+                        principalLayout.addView(titleTableLauout);
+                        titleTableLauout.addView(titleBox);
+                        titleBox.addView(nombre);
 
-            Integer rowCount = 0;
-            while (result.next()){
-                 servicesName= new JSONObject();
-                 servicesName.put("name", result.getString(1));
-                 servicesName.put("price", result.getInt(2));
-                 servicesName.put("location", result.getString(3));
-                 servicesName.put("available", result.getString(4));
-                 titles.add(servicesName);
+                        //atributes
+                        TableLayout principalTable = new TableLayout(extra_services.this);
+                        TableRow containerRow = new TableRow(extra_services.this);
+                        TableRow containerRow2 = new TableRow(extra_services.this);
+                        TableRow containerRow3 = new TableRow(extra_services.this);
+                        containerRow.setGravity(Gravity.LEFT);
+                        TableRow atributeRow = new TableRow(extra_services.this);
+                        TableRow atributeRow2 = new TableRow(extra_services.this);
+                        TableRow atributeRow3 = new TableRow(extra_services.this);
 
-            }
+                        TableRow spaceRow = new TableRow(extra_services.this);
+                        TableRow spaceRow2 = new TableRow(extra_services.this);
+                        TableRow spaceRow3 = new TableRow(extra_services.this);
 
+                        TableRow valueRow = new TableRow(extra_services.this);
+                        TableRow valueRow2 = new TableRow(extra_services.this);
+                        TableRow valueRow3 = new TableRow(extra_services.this);
 
-            //Toast.makeText(this, resul, Toast.LENGTH_SHORT).show();
+                        TextView atribute1 = new TextView(extra_services.this);
+                        TextView atribute2 = new TextView(extra_services.this);
+                        TextView atribute3 = new TextView(extra_services.this);
 
+                        TextView space = new TextView(extra_services.this);
 
-            for (JSONObject title : titles) {
-                //title
-                TableLayout titleTableLauout = new TableLayout(this);
-                TableRow titleBox = new TableRow(this);
-                TextView nombre = new TextView(this);
+                        TextView value1 = new TextView(extra_services.this);
+                        TextView value2 = new TextView(extra_services.this);
+                        TextView value3 = new TextView(extra_services.this);
 
-                nombre.setText(title.getString("name"));
-                nombre.setTextColor(Color.parseColor("#0090FF"));
+                        atribute1.setText("Localización");
+                        atribute2.setText("Precio");
+                        atribute3.setText("Disponibilidad");
 
-                principalLayout.addView(titleTableLauout);
-                titleTableLauout.addView(titleBox);
-                titleBox.addView(nombre);
+                        space.setText(" ");
 
-                //atributes
-                TableLayout principalTable = new TableLayout(this);
-                TableRow containerRow = new TableRow(this);
-                TableRow containerRow2 = new TableRow(this);
-                TableRow containerRow3 = new TableRow(this);
-                containerRow.setGravity(Gravity.LEFT);
-                TableRow atributeRow = new TableRow(this);
-                TableRow atributeRow2 = new TableRow(this);
-                TableRow atributeRow3 = new TableRow(this);
+                        value1.setTextColor(Color.parseColor("#000000"));
+                        value2.setTextColor(Color.parseColor("#000000"));
+                        value3.setTextColor(Color.parseColor("#000000"));
 
-                TableRow spaceRow = new TableRow(this);
-                TableRow spaceRow2 = new TableRow(this);
-                TableRow spaceRow3 = new TableRow(this);
+                        String location = services.getLocation().isEmpty() ? "SIN REGISTRO" : services.getLocation();
+                        value1.setText(location);
+                        String price = "$" + services.getPrice();
+                        value2.setText(price);
+                        String isAvailable = services.isAvailable() ? "Disponible" : "No Disponible";
+                        value3.setText(isAvailable);
 
-                TableRow valueRow = new TableRow(this);
-                TableRow valueRow2 = new TableRow(this);
-                TableRow valueRow3 = new TableRow(this);
+                        principalLayout.addView(principalTable);
 
-                TextView atribute1 = new TextView(this);
-                TextView atribute2 = new TextView(this);
-                TextView atribute3 = new TextView(this);
+                        principalTable.addView(containerRow);
+                        principalTable.addView(containerRow2);
+                        principalTable.addView(containerRow3);
 
-                TextView space = new TextView(this);
+                        containerRow.addView(atributeRow);
+                        containerRow2.addView(atributeRow2);
+                        containerRow3.addView(atributeRow3);
 
-                TextView value1 = new TextView(this);
-                TextView value2 = new TextView(this);
-                TextView value3 = new TextView(this);
+                        containerRow.addView(spaceRow);
+                        containerRow2.addView(spaceRow2);
+                        containerRow3.addView(spaceRow3);
 
-                atribute1.setText("Localización");
-                atribute2.setText("Precio");
-                atribute3.setText("Disponibilidad");
+                        containerRow.addView(valueRow);
+                        containerRow2.addView(valueRow2);
+                        containerRow3.addView(valueRow3);
 
-                space.setText(" ");
+                        atributeRow.addView(atribute1);
+                        atributeRow2.addView(atribute2);
+                        atributeRow3.addView(atribute3);
 
-                value1.setTextColor(Color.parseColor("#000000"));
-                value2.setTextColor(Color.parseColor("#000000"));
-                value3.setTextColor(Color.parseColor("#000000"));
+                        valueRow.addView(value1);
+                        valueRow2.addView(value2);
+                        valueRow3.addView(value3);
+                        spaceRow.addView(space);
+                    }
+                }
 
-                value1.setText(title.getString("location"));
-                String price = "$" + title.getString("price");
-                value2.setText(price);
-                value3.setText(title.getString("available"));
+                @Override
+                public void onFailure(Call<List<ExtraService>> call, Throwable t) {
 
-                principalLayout.addView(principalTable);
-
-                principalTable.addView(containerRow);
-                principalTable.addView(containerRow2);
-                principalTable.addView(containerRow3);
-
-                containerRow.addView(atributeRow);
-                containerRow2.addView(atributeRow2);
-                containerRow3.addView(atributeRow3);
-
-                containerRow.addView(spaceRow);
-                containerRow2.addView(spaceRow2);
-                containerRow3.addView(spaceRow3);
-
-                containerRow.addView(valueRow);
-                containerRow2.addView(valueRow2);
-                containerRow3.addView(valueRow3);
-
-                atributeRow.addView(atribute1);
-                atributeRow2.addView(atribute2);
-                atributeRow3.addView(atribute3);
-
-                valueRow.addView(value1);
-                valueRow2.addView(value2);
-                valueRow3.addView(value3);
-                spaceRow.addView(space);
-            }
+                }
+            });
         }catch (Exception e){
 
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -164,8 +167,8 @@ public class extra_services extends AppCompatActivity {
         }
 
 
-
     }
+
 
     public void addService (View view){
         Intent i = new Intent(this, addExtraService.class);

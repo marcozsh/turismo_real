@@ -8,8 +8,8 @@
     tools:context=".extra_services">
 
     <ScrollView
-        android:layout_width="319dp"
-        android:layout_height="446dp"
+        android:layout_width="343dp"
+        android:layout_height="424dp"
         android:contentDescription="@string/extra_services"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/divider"

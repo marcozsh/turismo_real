@@ -1,5 +1,6 @@
 package com.example.turismoreal.Services;
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,10 +12,8 @@ import retrofit2.http.POST;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-public interface LoginService {
 
-    @GET("employee_login/")
-    Call<List<SendLogin>> getUserGet();
+public interface LoginService {
 
     @POST("employee_login/")
     Call<ResponseBody> login(@Body RequestBody requestBody);

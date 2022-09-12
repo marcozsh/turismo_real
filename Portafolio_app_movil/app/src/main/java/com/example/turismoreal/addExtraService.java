@@ -10,12 +10,29 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.turismoreal.Services.ExtraServices;
+import com.example.turismoreal.Services.SendLogin;
+import com.example.turismoreal.models.ExtraService;
+import com.example.turismoreal.models.OneResponse;
+import com.google.gson.Gson;
+
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class addExtraService extends AppCompatActivity {
 
@@ -26,8 +43,8 @@ public class addExtraService extends AppCompatActivity {
     private EditText serviceLocation;
     private RadioButton serviceTypeTour;
     private RadioButton serviceTypeTransport;
+    private Integer service_id;
 
-    private Connection connection = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,23 +79,40 @@ public class addExtraService extends AppCompatActivity {
         String location = serviceLocation.getText().toString();
         Integer avalible = swicthButton.isChecked() ? 1 : 0;
         Integer serviceType = serviceTypeTour.isChecked() ? 1 : 2;
-        Integer last_id = 0;
         try {
-            Statement sql = connection.createStatement();
-            ResultSet result = sql.executeQuery("SELECT fn_add_service("+ serviceType + ", '"+name+"', "+price+", '"+location+"', "+avalible+") as last_service_id FROM DUAL");
-            while(result.next()){
-                last_id = result.getInt(1);
-            }
-            if (last_id != 0) {
-                connection.commit();
-                Toast.makeText(this, "Servicio Agregado correctamente", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this, extra_services.class);
-                startActivity(i);
-                finish();
-            }else{
-                Toast.makeText(this, "Error al agregar el servicio extra", Toast.LENGTH_SHORT).show();
-            }
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(splashScreen.URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
+            ExtraServices extraServices = retrofit.create(ExtraServices.class);
+            String jsonData = "{\"service_type_id\":"+serviceType+",\"name\":\""+name+"\",\"price\": "+price+",\"location\": \""+location+"\",\"available\":"+avalible+"}";
+            RequestBody requestBody = RequestBody.create(MediaType.parse("aplication/json"), jsonData);
+            extraServices.addExtraService(requestBody).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    try {
+                        Gson g = new Gson();
+                        OneResponse post_response = g.fromJson(response.body().string(), OneResponse.class);
+                        service_id = post_response.getResponse();
+                        if (service_id != 0) {
+                            Toast.makeText(addExtraService.this, "Servicio Agregado correctamente", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(addExtraService.this, extra_services.class);
+                            startActivity(i);
+                            finish();
+                        }else{
+                            Toast.makeText(addExtraService.this, "Error al agregar el servicio extra", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                }
+            });
         }catch (Exception e){
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             System.out.println(e.getMessage());
