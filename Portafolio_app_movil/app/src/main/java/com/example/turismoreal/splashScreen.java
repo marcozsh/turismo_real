@@ -14,75 +14,97 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Locale;
+
+import com.example.turismoreal.Services.LoginService;
+import com.example.turismoreal.Services.SendLogin;
+import com.google.gson.Gson;
+
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressLint("CustomSplashScreen")
 public class splashScreen extends AppCompatActivity {
 
-    private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-    private static final String URL = "jdbc:oracle:thin:@192.168.0.6:1522:XE";
-    private static final String USERNAME = "turismo_real_dev";
-    private static final String PASSWORD = "123";
-    private static Connection connection;
-
     private String session_id;
 
-    private ProgressBar progressBar;
+
+    public static final String URL = "http://192.168.0.6:8000/api_mobile/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         setTheme(R.style.Theme_TurismoReal);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
 
-       progressBar=findViewById(R.id.progressBar);
-       progressBar.setVisibility(View.VISIBLE);
+
 
         new Handler().postDelayed(() -> {
             try{
                 SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
 
-
-                Integer id =preferences.getInt("userId", 0);
+                Integer id = preferences.getInt("userId", 0);
 
                 if (id == 0){
                     Intent i = new Intent(this, login.class);
                     startActivity(i);
                     finish();
                 }
+                else
+                {
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+                    LoginService loginService = retrofit.create(LoginService.class);
+                    String jsonData = "{\"login\":1,\"user_id\":"+id+"}";
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("aplication/json"), jsonData);
+                    loginService.login(requestBody).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            try{
+                                Gson g = new Gson();
+                                SendLogin sendLogin = g.fromJson(response.body().string(), SendLogin.class);
+                                session_id = sendLogin.getSession();
+                                if (session_id.equals("NO SESSION") || session_id.equals("UNREGISTER")){
+                                    Intent i = new Intent(splashScreen.this, login.class);
+                                    startActivity(i);
+                                }else {
+                                    Toast.makeText(splashScreen.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(splashScreen.this, landing_page.class);
+                                    startActivity(i);
+                                }
+                                finish();
 
-                connection = getConn();
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT \n" +
-                                                                    "CASE \n" +
-                                                                    "    WHEN (SELECT count(session_id) FROM employee_session WHERE user_id = "+id+" ) <= 0 \n" +
-                                                                    "    THEN 'UNREGISTER' \n" +
-                                                                    "    ELSE (SELECT session_id FROM employee_session WHERE user_id = "+id+" ) END AS \"session_id\" FROM DUAL\n");
-                while (resultSet.next()){
-                    session_id = resultSet.getString(1);
-                }
-                if (session_id.equals("NO SESSION") || session_id.equals("UNREGISTER")){
-                    Intent i = new Intent(this, login.class);
-                    startActivity(i);
-                    connection.close();
-                    finish();
-                }else {
-                    Toast.makeText(this, "Bienvenido!", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(this, landing_page.class);
-                    startActivity(i);
-                    connection.close();
-                    finish();
+                            }
+                            catch (NullPointerException | IOException e){
+                                e.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            t.printStackTrace();
+                            System.out.println(t.getMessage());
+                        }
+                    });
+
                 }
             }
             catch (Exception e){
+                e.printStackTrace();
                 System.out.println(e.getMessage());
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -90,23 +112,4 @@ public class splashScreen extends AppCompatActivity {
         }, 2000);
     }
 
-    public static Connection getConn() {
-        try
-        {
-            Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            if (connection != null)
-            {
-                return connection;
-            } else
-            {
-                return null;
-            }
-        } catch (ClassNotFoundException | SQLException e)
-        {
-            System.out.println(e.getMessage());
-            return null;
-        }
-
-    }
 }

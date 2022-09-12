@@ -35,7 +35,7 @@ public class extra_services extends AppCompatActivity {
     private TableRow spaceRow;
     private TableRow valueRow;
 
-    private Connection connection = splashScreen.getConn();
+    private Connection connection = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -8,32 +8,38 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
 //sql imports
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 //login interface
-import com.example.turismoreal.landing_page;
+import com.example.turismoreal.Services.LoginService;
+import com.example.turismoreal.Services.SendLogin;
+import com.example.turismoreal.models.Employee;
+import com.google.gson.Gson;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import pl.droidsonroids.gif.GifImageButton;
+import pl.droidsonroids.gif.GifTextView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class login extends AppCompatActivity {
 
     private EditText user;
     private EditText password;
     private Integer user_id;
-
-
-    //private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-    //private static final String URL = "jdbc:oracle:thin:@192.168.0.6:1522:XE";
-    //private static final String USERNAME = "turismo_real_dev";
-    //private static final String PASSWORD = "123";
-    private Connection connection = splashScreen.getConn();
+    private GifTextView gib;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,9 @@ public class login extends AppCompatActivity {
 
         user = findViewById(R.id.username);
         password = findViewById(R.id.password);
+
+        gib =  findViewById(R.id.loading);
+
 
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
@@ -61,43 +70,73 @@ public class login extends AppCompatActivity {
     }
 
     public void buttonConnectToOracleDB(View view){
+
+        gib.setVisibility(view.VISIBLE);
         String username = user.getText().toString();
         String pass =password.getText().toString();
         if (!username.isEmpty() && !pass.isEmpty()){
             try {
-                Statement sql1 = connection.createStatement();
-                ResultSet resultSet = sql1.executeQuery("SELECT fn_login('"+username+"', '"+pass+"') as respuesta FROM DUAL");
-                while (resultSet.next()){
-                    user_id = Integer.parseInt(resultSet.getString(1));
-                }
-                connection.commit();
-                //Toast.makeText(this, user_id.toString(), Toast.LENGTH_LONG).show();
-                if (user_id > 0){
-                    Statement sql2 = connection.createStatement();
-                    ResultSet result = sql2.executeQuery("SELECT \n" +
-                            "    INITCAP(e.name) || ' ' || INITCAP(e.last_name) as \"full_name\"\n" +
-                            "    ,et.position\n" +
-                            "    ,es.session_id\n" +
-                            "FROM employee_session es\n" +
-                            "JOIN employee e ON es.user_id = e.id\n" +
-                            "JOIN employee_type et ON e.employee_type_id = et.id\n" +
-                            "WHERE es.user_id = " + user_id);
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(splashScreen.URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                LoginService loginService = retrofit.create(LoginService.class);
+                String jsonData = "{\"login\":2,\"username\":\""+username+"\",\"password\":\""+pass+"\"}";
+                RequestBody requestBody = RequestBody.create(MediaType.parse("aplication/json"), jsonData);
+                loginService.login(requestBody).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try{
+                            Gson g = new Gson();
+                            SendLogin sendLogin = g.fromJson(response.body().string(), SendLogin.class);
+                            user_id = sendLogin.getUserId();
+                            if (user_id > 0){
+                                String jsonData = "{\"user_id\":"+user_id+"}";
+                                RequestBody requestBody = RequestBody.create(MediaType.parse("aplication/json"), jsonData);
 
-                    while (result.next()){
-                        saveSession(user_id, result.getString(1),result.getString(2),result.getString(3));
+                                loginService.loginEmployee(requestBody).enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        try {
+                                            Gson g = new Gson();
+                                            Employee employee = g.fromJson(response.body().string(), Employee.class);
+                                            saveSession(user_id, employee.getFullName(), employee.getPosition(),employee.getSessionId());
+                                            Toast.makeText(login.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(login.this, landing_page.class);
+                                            startActivity(i);
+                                            finish();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        t.printStackTrace();
+                                    }
+                                });
+
+
+                            }else{
+                                Toast.makeText(login.this, "Usuario Incorrecto", Toast.LENGTH_LONG).show();
+                            }
+                        }catch(NullPointerException | IOException e){
+                            e.printStackTrace();
+                        }
                     }
-                    Toast.makeText(this, "Bienvenido!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(this, landing_page.class);
-                    startActivity(i);
-                    connection.close();
-                    finish();
-                }else{
-                    Toast.makeText(this, "Usuario Incorrecto", Toast.LENGTH_LONG).show();
-                }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        t.printStackTrace();
+                        System.out.println(t.getMessage());
+                    }
+                });
+                //Toast.makeText(this, user_id.toString(), Toast.LENGTH_LONG).show();
+
 
             }
-            catch (SQLException e){
+            catch (Exception e){
                 Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+                System.out.println(e.toString());
             }
         }else{
             Toast.makeText(this, "Los campos son obligatorios", Toast.LENGTH_LONG).show();

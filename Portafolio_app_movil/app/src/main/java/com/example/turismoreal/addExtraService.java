@@ -27,7 +27,7 @@ public class addExtraService extends AppCompatActivity {
     private RadioButton serviceTypeTour;
     private RadioButton serviceTypeTransport;
 
-    private Connection connection = splashScreen.getConn();
+    private Connection connection = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,7 +17,7 @@
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/serviceName"
         app:layout_constraintVertical_bias="0.118"
@@ -33,9 +33,10 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/servicePrice"
-        app:layout_constraintVertical_bias="0.171"
+        app:layout_constraintVertical_bias="0.173"
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
@@ -94,12 +95,12 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:text="Nombre del servicio *"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/serviceName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.005"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/serviceName" />
 
     <Button
@@ -132,35 +133,32 @@
         android:id="@+id/extraServiceGoBack2"
         android:layout_width="212dp"
         android:layout_height="32dp"
+        android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
         android:onClick="goBack"
         android:text="Agregar Servicio Extra"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.018"
         tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/serviceName"
         android:layout_width="316dp"
         android:layout_height="36dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/shape_input"
         android:ems="10"
         android:hint="Nombre"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/extraServiceGoBack2"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="TouchTargetSizeCheck" />
 
     <Switch

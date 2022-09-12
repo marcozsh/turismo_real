@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="317dp"
-        android:layout_height="569dp"
+        android:layout_width="295dp"
+        android:layout_height="512dp"
         android:background="@drawable/shape"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,8 +39,8 @@
 
     <Button
         android:id="@+id/btnReportes"
-        android:layout_width="296dp"
-        android:layout_height="50dp"
+        android:layout_width="267dp"
+        android:layout_height="51dp"
         android:layout_marginTop="200dp"
         android:layout_weight="1"
         android:onClick="buttonConnectToOracleDB"
@@ -51,8 +51,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="316dp"
-        android:layout_height="99dp"
+        android:layout_width="292dp"
+        android:layout_height="79dp"
         android:layout_marginTop="185dp"
         android:layout_marginBottom="250dp"
         android:background="@color/white"
@@ -73,7 +73,8 @@
             android:inputType="textEmailAddress"
             android:selectAllOnFocus="true"
             android:textAlignment="viewStart"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/password"
@@ -86,7 +87,8 @@
             android:inputType="textPassword"
             android:selectAllOnFocus="true"
             android:textAlignment="viewStart"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
     <TextView
@@ -103,5 +105,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifTextView
+        android:id="@+id/loading"
+        android:layout_width="55dp"
+        android:layout_height="53dp"
+        android:background="@drawable/loading"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/btnReportes"
+        app:layout_constraintStart_toStartOf="@+id/btnReportes"
+        app:layout_constraintTop_toBottomOf="@+id/btnReportes"
+        app:layout_constraintVertical_bias="0.509" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,14 +15,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class landing_page extends AppCompatActivity {
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-    private static final Connection connection = splashScreen.getConn();
+import com.example.turismoreal.Services.LoginService;
+import com.example.turismoreal.models.CustomError;
+import com.google.gson.Gson;
+
+public class landing_page extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -82,14 +94,43 @@ public class landing_page extends AppCompatActivity {
 
     public void logout(){
         try {
-            Statement sql1 = connection.createStatement();
-            sql1.executeQuery("update employee_session set session_id = 'NO SESSION' where user_id = "+ user_id);
-            connection.commit();
-            SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
-            preferences.edit().clear().apply();
-            Intent i = new Intent(landing_page.this, login.class);
-            startActivity(i);
-            finish();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(splashScreen.URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            String jsonData = "{\"user_id\":"+user_id+"}";
+            RequestBody requestBody = RequestBody.create(MediaType.parse("aplication/json"), jsonData);
+            LoginService loginService = retrofit.create(LoginService.class);
+
+            loginService.logOutEmployee(requestBody).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Gson gson = new Gson();
+                    try {
+                        CustomError error = gson.fromJson(response.body().string(), CustomError.class);
+                        String respuesta = error.getError();
+                        if (respuesta.equals("NO ERROR")){
+                            SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
+                            preferences.edit().clear().apply();
+                            Intent i = new Intent(landing_page.this, login.class);
+                            startActivity(i);
+                            finish();
+                        }else{
+                            Toast.makeText(landing_page.this, "Error con el servidor", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+
         } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
         }
