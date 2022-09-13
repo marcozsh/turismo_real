@@ -71,10 +71,10 @@ public class login extends AppCompatActivity {
 
     public void buttonConnectToOracleDB(View view){
 
-        gib.setVisibility(view.VISIBLE);
         String username = user.getText().toString();
         String pass =password.getText().toString();
         if (!username.isEmpty() && !pass.isEmpty()){
+            gib.setVisibility(view.VISIBLE);
             try {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(splashScreen.URL)
@@ -119,6 +119,7 @@ public class login extends AppCompatActivity {
 
                             }else{
                                 Toast.makeText(login.this, "Usuario Incorrecto", Toast.LENGTH_LONG).show();
+                                gib.setVisibility(view.INVISIBLE);
                             }
                         }catch(NullPointerException | IOException e){
                             e.printStackTrace();
