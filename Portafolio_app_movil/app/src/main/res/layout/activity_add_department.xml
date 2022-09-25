@@ -34,7 +34,7 @@
                     android:background="@drawable/shape_input"
                     android:contentDescription="@string/app_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintHorizontal_bias="0.363"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/price"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -47,7 +47,7 @@
                     android:textColor="#000000"
                     app:layout_constraintBottom_toTopOf="@+id/departmentTypeSpinner"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.094"
+                    app:layout_constraintHorizontal_bias="0.075"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
@@ -125,7 +125,7 @@
                     android:background="@drawable/shape_input"
                     android:contentDescription="@string/app_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.409"
+                    app:layout_constraintHorizontal_bias="0.363"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/communeSpinner"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -150,7 +150,7 @@
                     android:textColor="#000000"
                     app:layout_constraintBottom_toTopOf="@+id/communeSpinner"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.077"
+                    app:layout_constraintHorizontal_bias="0.053"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
@@ -161,7 +161,7 @@
                     android:textColor="#000000"
                     app:layout_constraintBottom_toTopOf="@+id/shortDescription"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.091"
+                    app:layout_constraintHorizontal_bias="0.066"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
@@ -172,7 +172,7 @@
                     android:textColor="#000000"
                     app:layout_constraintBottom_toTopOf="@+id/longDescription"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.082"
+                    app:layout_constraintHorizontal_bias="0.066"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
@@ -182,7 +182,7 @@
                     android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
                     app:layout_constraintBottom_toBottomOf="@+id/communeSpinner"
                     app:layout_constraintEnd_toEndOf="@+id/communeSpinner"
-                    app:layout_constraintHorizontal_bias="0.925"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/communeSpinner"
                     app:layout_constraintTop_toTopOf="@+id/communeSpinner"
                     app:layout_constraintVertical_bias="0.0" />
@@ -194,7 +194,7 @@
                     android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
                     app:layout_constraintBottom_toBottomOf="@+id/departmentTypeSpinner"
                     app:layout_constraintEnd_toEndOf="@+id/departmentTypeSpinner"
-                    app:layout_constraintHorizontal_bias="0.925"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/departmentTypeSpinner"
                     app:layout_constraintTop_toTopOf="@+id/departmentTypeSpinner"
                     app:layout_constraintVertical_bias="0.0" />
@@ -252,7 +252,7 @@
                     android:hint="Descripción corta"
                     android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.41"
+                    app:layout_constraintHorizontal_bias="0.363"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/departmentTypeSpinner"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -267,7 +267,7 @@
                     android:hint="Descripción larga"
                     android:inputType="textMultiLine"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.409"
+                    app:layout_constraintHorizontal_bias="0.363"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/shortDescription"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -278,6 +278,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="32dp"
                     android:layout_weight="1"
+                    android:onClick="addDepartment"
                     android:text="@string/add"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
