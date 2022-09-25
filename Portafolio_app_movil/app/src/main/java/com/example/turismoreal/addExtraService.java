@@ -60,7 +60,7 @@ public class addExtraService extends AppCompatActivity {
         serviceTypeTour.setChecked(true);
         serviceTypeTransport = findViewById(R.id.serviceTransportType);
 
-
+        serviceName.requestFocus();
     }
 
     public void serviceType(View view) {

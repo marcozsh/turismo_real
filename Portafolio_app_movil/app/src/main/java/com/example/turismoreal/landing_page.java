@@ -137,6 +137,11 @@ public class landing_page extends AppCompatActivity {
     }
 
 
+    public void departmentMenu(View view){
+        Intent i = new Intent(this, department_page.class);
+        startActivity(i);
+        finish();
+    }
 
     public void extraServicesMenu(View view){
         Intent i = new Intent(this, extra_services.class);

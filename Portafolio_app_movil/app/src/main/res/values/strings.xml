@@ -15,5 +15,7 @@
     <string name="yes">Sí</string>
     <string name="no">No</string>
     <string name="add">Agregar</string>
+    <string name="search">Buscar</string>
+
 
 </resources>

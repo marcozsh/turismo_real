@@ -41,10 +41,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class extra_services extends AppCompatActivity {
 
     private LinearLayout principalLayout;
-    private TableRow title;
-    private TableRow atributeRow;
-    private TableRow spaceRow;
-    private TableRow valueRow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_TurismoReal);
@@ -113,7 +109,7 @@ public class extra_services extends AppCompatActivity {
                         atribute2.setText("Precio");
                         atribute3.setText("Disponibilidad");
 
-                        space.setText(" ");
+                        space.setText("                       ");
 
                         value1.setTextColor(Color.parseColor("#000000"));
                         value2.setTextColor(Color.parseColor("#000000"));
