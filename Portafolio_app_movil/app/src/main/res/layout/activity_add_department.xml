@@ -110,7 +110,7 @@
                     android:background="@drawable/shape_input"
                     android:ems="10"
                     android:hint="Cantidad de piezas"
-                    android:inputType="number|textPersonName"
+                    android:inputType="number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.386"
                     app:layout_constraintStart_toStartOf="parent"
@@ -175,6 +175,18 @@
                     app:layout_constraintHorizontal_bias="0.066"
                     app:layout_constraintStart_toStartOf="parent" />
 
+                <TextView
+                    android:id="@+id/comunatexto3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Foto del departamento*"
+                    android:textColor="#000000"
+                    app:layout_constraintBottom_toTopOf="@+id/departmentImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.464"
+                    app:layout_constraintStart_toStartOf="parent" />
+
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="39dp"
@@ -235,7 +247,7 @@
                     android:background="@drawable/shape_input"
                     android:ems="10"
                     android:hint="Precio"
-                    android:inputType="number|textPersonName"
+                    android:inputType="number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.363"
                     app:layout_constraintStart_toStartOf="parent"
@@ -282,7 +294,33 @@
                     android:text="@string/add"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/longDescription" />
+                    app:layout_constraintTop_toBottomOf="@+id/departmentImage" />
+
+                <ImageView
+                    android:id="@+id/departmentImage"
+                    android:layout_width="231dp"
+                    android:layout_height="119dp"
+                    android:layout_marginTop="40dp"
+                    android:onClick="loadImage"
+                    android:src="@drawable/camara"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/longDescription"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText
+                    android:id="@+id/base64Image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@+id/btnReportes3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/departmentImage" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

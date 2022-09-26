@@ -1,12 +1,18 @@
 package com.example.turismoreal;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,7 +24,12 @@ import com.example.turismoreal.models.Commune;
 import com.example.turismoreal.models.OneResponse;
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +54,10 @@ public class add_department extends AppCompatActivity {
     private EditText price;
     private EditText shortDescription;
     private EditText longDescription;
+    private ImageView departmentImage;
+    private EditText base64String;
+    private String base64Image;
+
 
     private Integer department_id;
 
@@ -62,9 +77,11 @@ public class add_department extends AppCompatActivity {
         departmentTypeSpinner = findViewById(R.id.departmentTypeSpinner);
         shortDescription = findViewById(R.id.shortDescription);
         longDescription = findViewById(R.id.longDescription);
+        base64String = findViewById(R.id.base64Image);
+        departmentImage = (ImageView) findViewById(R.id.departmentImage);
 
 
-        String [] departmentType = {"Selecciona un tipo de departamento","LOFT", "STUDIO", "BASIC", "FAMILIAR", "PENHOUSE"};
+        String [] departmentType = {"Selecciona un tipo de departamento","LOFT", "STUDIO", "BASIC", "FAMILIAR", "PENTHOUSE"};
 
         ArrayAdapter<String> departmentTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, departmentType);
 
@@ -111,6 +128,37 @@ public class add_department extends AppCompatActivity {
 
     }
 
+    public void loadImage(View view){
+       image();
+    }
+
+    public void image(){
+        Intent loadImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        loadImage.setType("image/");
+        startActivityForResult(loadImage.createChooser(loadImage,"Seleccione una aplicación"),10);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            Uri path = data.getData();
+            departmentImage.setImageURI(path);
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] bytes = stream.toByteArray();
+                base64Image = Base64.encodeToString(bytes, Base64.NO_WRAP);
+
+                base64String.setText(base64Image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void addDepartment(View view){
         String departmetAddress = address.getText().toString();
         Integer status = switchButton.isChecked() ? 1 : 0;
@@ -120,6 +168,7 @@ public class add_department extends AppCompatActivity {
         String departmentType = departmentTypeSpinner.getSelectedItem().toString();
         String sDescription = shortDescription.getText().toString();
         String lDescription = longDescription.getText().toString();
+        String base64Image = base64String.getText().toString();
         if (departmentCommune.equals("Seccionar una comuna")){
             Toast.makeText(add_department.this,"Debe seleccionar una comuna", Toast.LENGTH_SHORT).show();
         }else if(departmentType.equals("Selecciona un tipo de departamento")){
@@ -132,7 +181,7 @@ public class add_department extends AppCompatActivity {
                        .addConverterFactory(GsonConverterFactory.create())
                        .build();
                DepartmentService departmentService = retrofit.create(DepartmentService.class);
-               String jsonData = "{\"address\":\""+departmetAddress+"\",\"status\":"+status+",\"qty_rooms\":"+departmentQtyRoom+",\"price\":"+departmentPrice+",\"commune\":\""+departmentCommune+"\",\"department_type\":\""+departmentType+"\",\"short_description\":\""+sDescription+"\",\"long_description\":\""+lDescription+"\"}";
+               String jsonData = "{\"address\":\""+departmetAddress+"\",\"status\":"+status+",\"qty_rooms\":"+departmentQtyRoom+",\"price\":"+departmentPrice+",\"commune\":\""+departmentCommune+"\",\"department_type\":\""+departmentType+"\",\"short_description\":\""+sDescription+"\",\"long_description\":\""+lDescription+"\",\"department_image\":\""+base64Image+"\"}";
                RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
                departmentService.addDepartment(requestBody).enqueue(new Callback<ResponseBody>() {
                    @Override

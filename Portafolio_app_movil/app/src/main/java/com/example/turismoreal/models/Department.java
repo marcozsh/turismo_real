@@ -29,6 +29,11 @@ public class Department {
     @SerializedName("long_description")
     @Expose
     private String longDescription;
+    @SerializedName("department_image")
+    @Expose
+    private String departmentImage;
+
+
 
     public String getAddress() {
         return address;
@@ -82,16 +87,15 @@ public class Department {
         return shortDescription;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
+    public void setShortDescription(String shortDescription) {this.shortDescription = shortDescription;}
 
     public String getLongDescription() {
         return longDescription;
     }
 
-    public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
-    }
+    public void setLongDescription(String longDescription) {this.longDescription = longDescription;}
 
+    public String getDepartmentImage() {return departmentImage;}
+
+    public void setDepartmentImage(String departmentImage) {this.departmentImage = departmentImage;}
 }

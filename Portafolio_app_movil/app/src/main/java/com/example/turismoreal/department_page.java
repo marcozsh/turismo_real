@@ -4,9 +4,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -81,8 +84,15 @@ public class department_page extends AppCompatActivity {
                         TableRow status = new TableRow(department_page.this);
                         TextView statusText = new TextView(department_page.this);
 
+                        if(department.getDepartmentImage() == null){
+                            departmentPreview.setBackgroundResource(R.drawable.department_sample);
+                        }else{
+                            byte [] bytes = Base64.decode(department.getDepartmentImage(), Base64.NO_WRAP);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-                        departmentPreview.setBackgroundResource(R.drawable.department_sample);
+                            departmentPreview.setImageBitmap(bitmap);
+                        }
+
                         int width = 220;
                         int height = 200;
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
