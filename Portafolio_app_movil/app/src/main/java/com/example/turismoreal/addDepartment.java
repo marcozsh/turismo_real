@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.turismoreal.Services.CommuneService;
@@ -26,10 +25,6 @@ import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +37,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class add_department extends AppCompatActivity {
+public class addDepartment extends AppCompatActivity {
 
     private Switch switchButton;
     private Spinner communeSpinner;
@@ -99,7 +94,7 @@ public class add_department extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<Commune>> call, Response<List<Commune>> response) {
                     if (!response.isSuccessful()){
-                        Toast.makeText(add_department.this, response.code(), Toast.LENGTH_LONG);
+                        Toast.makeText(addDepartment.this, response.code(), Toast.LENGTH_LONG);
                         return;
                     }
                     List<Commune>communes = response.body();
@@ -110,7 +105,7 @@ public class add_department extends AppCompatActivity {
                             options.add(i.getCommune());
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(add_department.this, android.R.layout.simple_spinner_item, options);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(addDepartment.this, android.R.layout.simple_spinner_item, options);
                     communeSpinner.setAdapter(adapter);
                 }
 
@@ -170,9 +165,9 @@ public class add_department extends AppCompatActivity {
         String lDescription = longDescription.getText().toString();
         String base64Image = base64String.getText().toString();
         if (departmentCommune.equals("Seccionar una comuna")){
-            Toast.makeText(add_department.this,"Debe seleccionar una comuna", Toast.LENGTH_SHORT).show();
+            Toast.makeText(addDepartment.this,"Debe seleccionar una comuna", Toast.LENGTH_SHORT).show();
         }else if(departmentType.equals("Selecciona un tipo de departamento")){
-            Toast.makeText(add_department.this,"Debe seleccionar un tipo de departamento", Toast.LENGTH_SHORT).show();
+            Toast.makeText(addDepartment.this,"Debe seleccionar un tipo de departamento", Toast.LENGTH_SHORT).show();
         }else{
 
             try {
@@ -187,7 +182,7 @@ public class add_department extends AppCompatActivity {
                    @Override
                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                        if (!response.isSuccessful()){
-                           Toast.makeText(add_department.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(addDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
                            return;
                        }
                        try {
@@ -195,12 +190,12 @@ public class add_department extends AppCompatActivity {
                            OneResponse post_response = g.fromJson(response.body().string(), OneResponse.class);
                            department_id = post_response.getResponse();
                            if (department_id != 0) {
-                               Toast.makeText(add_department.this, "Departamento Agregado correctamente", Toast.LENGTH_SHORT).show();
-                               Intent i = new Intent(add_department.this, department_page.class);
+                               Toast.makeText(addDepartment.this, "Departamento Agregado correctamente", Toast.LENGTH_SHORT).show();
+                               Intent i = new Intent(addDepartment.this, departmentPage.class);
                                startActivity(i);
                                finish();
                            }else{
-                               Toast.makeText(add_department.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(addDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
                            }
                        } catch (IOException e) {
                            e.printStackTrace();
@@ -220,7 +215,7 @@ public class add_department extends AppCompatActivity {
     }
 
     public void goBack(View view){
-        Intent i = new Intent(this, department_page.class);
+        Intent i = new Intent(this, departmentPage.class);
         startActivity(i);
         finish();
     }

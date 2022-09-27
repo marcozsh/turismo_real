@@ -18,18 +18,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".add_department"
+            android:name=".addDepartment"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".department_page"
+            android:name=".departmentPage"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".addExtraService"
             android:exported="false" />
         <activity
-            android:name=".extra_services"
+            android:name=".extraServices"
             android:exported="false" />
         <activity
             android:name=".splashScreen"
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".landing_page"
+            android:name=".landingPage"
             android:exported="false" />
         <activity
             android:name=".login"

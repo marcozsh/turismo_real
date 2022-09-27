@@ -2,18 +2,12 @@ package com.example.turismoreal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -22,23 +16,15 @@ import android.widget.Toast;
 import com.example.turismoreal.Services.ExtraServices;
 import com.example.turismoreal.models.ExtraService;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
-import pl.droidsonroids.gif.GifTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class extra_services extends AppCompatActivity {
+public class extraServices extends AppCompatActivity {
 
     private LinearLayout principalLayout;
     @Override
@@ -60,15 +46,15 @@ public class extra_services extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<ExtraService>> call, Response<List<ExtraService>> response) {
                     if (!response.isSuccessful()) {
-                        Toast.makeText(extra_services.this, response.code(), Toast.LENGTH_LONG);
+                        Toast.makeText(com.example.turismoreal.extraServices.this, response.code(), Toast.LENGTH_LONG);
                         return;
                     }
                     List<ExtraService> allServices = response.body();
                     for (ExtraService services : allServices) {
                         //title
-                        TableLayout titleTableLauout = new TableLayout(extra_services.this);
-                        TableRow titleBox = new TableRow(extra_services.this);
-                        TextView nombre = new TextView(extra_services.this);
+                        TableLayout titleTableLauout = new TableLayout(com.example.turismoreal.extraServices.this);
+                        TableRow titleBox = new TableRow(com.example.turismoreal.extraServices.this);
+                        TextView nombre = new TextView(com.example.turismoreal.extraServices.this);
 
                         nombre.setText(services.getName());
                         nombre.setTextColor(Color.parseColor("#0090FF"));
@@ -78,32 +64,32 @@ public class extra_services extends AppCompatActivity {
                         titleBox.addView(nombre);
 
                         //atributes
-                        TableLayout principalTable = new TableLayout(extra_services.this);
-                        TableRow containerRow = new TableRow(extra_services.this);
-                        TableRow containerRow2 = new TableRow(extra_services.this);
-                        TableRow containerRow3 = new TableRow(extra_services.this);
+                        TableLayout principalTable = new TableLayout(com.example.turismoreal.extraServices.this);
+                        TableRow containerRow = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow containerRow2 = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow containerRow3 = new TableRow(com.example.turismoreal.extraServices.this);
                         containerRow.setGravity(Gravity.LEFT);
-                        TableRow atributeRow = new TableRow(extra_services.this);
-                        TableRow atributeRow2 = new TableRow(extra_services.this);
-                        TableRow atributeRow3 = new TableRow(extra_services.this);
+                        TableRow atributeRow = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow atributeRow2 = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow atributeRow3 = new TableRow(com.example.turismoreal.extraServices.this);
 
-                        TableRow spaceRow = new TableRow(extra_services.this);
-                        TableRow spaceRow2 = new TableRow(extra_services.this);
-                        TableRow spaceRow3 = new TableRow(extra_services.this);
+                        TableRow spaceRow = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow spaceRow2 = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow spaceRow3 = new TableRow(com.example.turismoreal.extraServices.this);
 
-                        TableRow valueRow = new TableRow(extra_services.this);
-                        TableRow valueRow2 = new TableRow(extra_services.this);
-                        TableRow valueRow3 = new TableRow(extra_services.this);
+                        TableRow valueRow = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow valueRow2 = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow valueRow3 = new TableRow(com.example.turismoreal.extraServices.this);
 
-                        TextView atribute1 = new TextView(extra_services.this);
-                        TextView atribute2 = new TextView(extra_services.this);
-                        TextView atribute3 = new TextView(extra_services.this);
+                        TextView atribute1 = new TextView(com.example.turismoreal.extraServices.this);
+                        TextView atribute2 = new TextView(com.example.turismoreal.extraServices.this);
+                        TextView atribute3 = new TextView(com.example.turismoreal.extraServices.this);
 
-                        TextView space = new TextView(extra_services.this);
+                        TextView space = new TextView(com.example.turismoreal.extraServices.this);
 
-                        TextView value1 = new TextView(extra_services.this);
-                        TextView value2 = new TextView(extra_services.this);
-                        TextView value3 = new TextView(extra_services.this);
+                        TextView value1 = new TextView(com.example.turismoreal.extraServices.this);
+                        TextView value2 = new TextView(com.example.turismoreal.extraServices.this);
+                        TextView value3 = new TextView(com.example.turismoreal.extraServices.this);
 
                         atribute1.setText("Localización");
                         atribute2.setText("Precio");
@@ -173,7 +159,7 @@ public class extra_services extends AppCompatActivity {
     }
 
     public void goBack(View view){
-        Intent i = new Intent(this, landing_page.class);
+        Intent i = new Intent(this, landingPage.class);
         startActivity(i);
         finish();
     }

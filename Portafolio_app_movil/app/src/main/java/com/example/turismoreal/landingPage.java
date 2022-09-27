@@ -1,7 +1,5 @@
 package com.example.turismoreal;
 
-import static com.example.turismoreal.login.*;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,15 +9,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -34,7 +27,7 @@ import com.example.turismoreal.Services.LoginService;
 import com.example.turismoreal.models.CustomError;
 import com.google.gson.Gson;
 
-public class landing_page extends AppCompatActivity {
+public class landingPage extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -79,7 +72,7 @@ public class landing_page extends AppCompatActivity {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(landing_page.this, "Saliendo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(landingPage.this, "Saliendo", Toast.LENGTH_SHORT).show();
                 logout();
             }
         });
@@ -112,11 +105,11 @@ public class landing_page extends AppCompatActivity {
                         if (respuesta.equals("NO ERROR")){
                             SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
                             preferences.edit().clear().apply();
-                            Intent i = new Intent(landing_page.this, login.class);
+                            Intent i = new Intent(landingPage.this, login.class);
                             startActivity(i);
                             finish();
                         }else{
-                            Toast.makeText(landing_page.this, "Error con el servidor", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(landingPage.this, "Error con el servidor", Toast.LENGTH_SHORT).show();
                         }
 
                     } catch (IOException e) {
@@ -138,13 +131,13 @@ public class landing_page extends AppCompatActivity {
 
 
     public void departmentMenu(View view){
-        Intent i = new Intent(this, department_page.class);
+        Intent i = new Intent(this, departmentPage.class);
         startActivity(i);
         finish();
     }
 
     public void extraServicesMenu(View view){
-        Intent i = new Intent(this, extra_services.class);
+        Intent i = new Intent(this, extraServices.class);
         startActivity(i);
         finish();
     }

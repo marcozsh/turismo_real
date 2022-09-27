@@ -1,20 +1,17 @@
 package com.example.turismoreal;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,8 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class department_page extends AppCompatActivity {
-
+public class departmentPage extends AppCompatActivity {
     private EditText searchDepartment;
     private LinearLayout container;
 
@@ -59,30 +55,30 @@ public class department_page extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<Department>> call, Response<List<Department>> response) {
                     if (!response.isSuccessful()){
-                        Toast.makeText(department_page.this, response.code(), Toast.LENGTH_LONG);
+                        Toast.makeText(departmentPage.this, response.code(), Toast.LENGTH_LONG);
                         return;
                     }
                     List<Department>departments = response.body();
                     for (Department department : departments){
-                        LinearLayout departmentContainer = new LinearLayout(department_page.this);
-                        TableLayout departmentTable = new TableLayout(department_page.this);
+                        LinearLayout departmentContainer = new LinearLayout(departmentPage.this);
+                        TableLayout departmentTable = new TableLayout(departmentPage.this);
 
-                        ImageView departmentPreview = new ImageView(department_page.this);
+                        ImageView departmentPreview = new ImageView(departmentPage.this);
 
-                        TableRow title = new TableRow(department_page.this);
-                        TextView titleText = new TextView(department_page.this);
+                        TableRow title = new TableRow(departmentPage.this);
+                        TextView titleText = new TextView(departmentPage.this);
 
-                        TableRow space = new TableRow(department_page.this);
-                        TextView spaceRow = new TextView(department_page.this);
+                        TableRow space = new TableRow(departmentPage.this);
+                        TextView spaceRow = new TextView(departmentPage.this);
 
-                        TableRow shortDescription = new TableRow(department_page.this);
-                        TextView shortDescriptionText = new TextView(department_page.this);
+                        TableRow shortDescription = new TableRow(departmentPage.this);
+                        TextView shortDescriptionText = new TextView(departmentPage.this);
 
-                        TableRow price = new TableRow(department_page.this);
-                        TextView priceText = new TextView(department_page.this);
+                        TableRow price = new TableRow(departmentPage.this);
+                        TextView priceText = new TextView(departmentPage.this);
 
-                        TableRow status = new TableRow(department_page.this);
-                        TextView statusText = new TextView(department_page.this);
+                        TableRow status = new TableRow(departmentPage.this);
+                        TextView statusText = new TextView(departmentPage.this);
 
                         if(department.getDepartmentImage() == null){
                             departmentPreview.setBackgroundResource(R.drawable.department_sample);
@@ -103,7 +99,7 @@ public class department_page extends AppCompatActivity {
                         title.addView(titleText);
 
                         departmentContainer.addView(departmentPreview);
-                        TextView spaceImg = new TextView(department_page.this);
+                        TextView spaceImg = new TextView(departmentPage.this);
                         spaceImg.setText(" ");
                         departmentContainer.addView(spaceImg);
                         departmentTable.addView(title);
@@ -129,7 +125,7 @@ public class department_page extends AppCompatActivity {
                         departmentTable.addView(status);
 
                         departmentContainer.addView(departmentTable);
-                        TextView containerSpace = new TextView(department_page.this);
+                        TextView containerSpace = new TextView(departmentPage.this);
                         containerSpace.setText(" ");
 
                         container.addView(departmentContainer);
@@ -151,19 +147,19 @@ public class department_page extends AppCompatActivity {
 
 
     public void goBack(View view){
-        Intent i = new Intent(this, landing_page.class);
+        Intent i = new Intent(this, landingPage.class);
         startActivity(i);
         finish();
     }
 
     public void extraServicesMenu(View view){
-        Intent i = new Intent(this, extra_services.class);
+        Intent i = new Intent(this, extraServices.class);
         startActivity(i);
         finish();
     }
 
     public void addDepartment(View view){
-        Intent i = new Intent(this, add_department.class);
+        Intent i = new Intent(this, addDepartment.class);
         startActivity(i);
         finish();
     }

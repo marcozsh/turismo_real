@@ -13,9 +13,6 @@ import android.widget.Toast;
 
 //sql imports
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 //login interface
 import com.example.turismoreal.Services.LoginService;
@@ -26,7 +23,6 @@ import com.google.gson.Gson;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import pl.droidsonroids.gif.GifImageButton;
 import pl.droidsonroids.gif.GifTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -102,7 +98,7 @@ public class login extends AppCompatActivity {
                                             Employee employee = g.fromJson(response.body().string(), Employee.class);
                                             saveSession(user_id, employee.getFullName(), employee.getPosition(),employee.getSessionId());
                                             Toast.makeText(login.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
-                                            Intent i = new Intent(login.this, landing_page.class);
+                                            Intent i = new Intent(login.this, landingPage.class);
                                             startActivity(i);
                                             finish();
                                         } catch (IOException e) {

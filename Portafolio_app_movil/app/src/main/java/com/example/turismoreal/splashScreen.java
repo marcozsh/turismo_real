@@ -10,8 +10,6 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.StrictMode;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -37,7 +35,7 @@ public class splashScreen extends AppCompatActivity {
     private String session_id;
 
 
-    public static final String URL = "http://192.168.0.6:8000/api_mobile/";
+    public static final String URL = "http://192.168.137.130:8000/api_mobile/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +82,7 @@ public class splashScreen extends AppCompatActivity {
                                     startActivity(i);
                                 }else {
                                     Toast.makeText(splashScreen.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(splashScreen.this, landing_page.class);
+                                    Intent i = new Intent(splashScreen.this, landingPage.class);
                                     startActivity(i);
                                 }
                                 finish();
