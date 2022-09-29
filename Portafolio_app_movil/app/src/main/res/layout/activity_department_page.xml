@@ -7,6 +7,18 @@
     android:background="#FFFFFF"
     tools:context=".departmentPage">
 
+    <Button
+        android:id="@+id/btnReportes4"
+        android:layout_width="142dp"
+        android:layout_height="37dp"
+        android:layout_weight="1"
+        android:onClick="searchDepartment"
+        android:text="@string/search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchDepartment"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <TextView
         android:id="@+id/btnAddDepartment"
         android:layout_width="249dp"
@@ -22,7 +34,7 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.865"
+        app:layout_constraintVertical_bias="0.888"
         tools:ignore="TouchTargetSizeCheck" />
 
     <LinearLayout
@@ -180,30 +192,29 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787" />
+        app:layout_constraintVertical_bias="0.832" />
 
     <View
         android:id="@+id/divider3"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="12dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchDepartment" />
+        app:layout_constraintTop_toBottomOf="@+id/btnReportes4" />
 
     <EditText
         android:id="@+id/searchDepartment"
-        android:layout_width="330dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="331dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/shape_input"
         android:drawableLeft="@drawable/ic_baseline_search_24"
         android:ems="10"
-        android:hint="Buscar"
+        android:hint="Comuna"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/departmentGoBack"
         tools:ignore="TouchTargetSizeCheck" />

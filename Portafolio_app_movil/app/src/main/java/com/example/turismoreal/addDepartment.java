@@ -51,7 +51,8 @@ public class addDepartment extends AppCompatActivity {
     private EditText longDescription;
     private ImageView departmentImage;
     private EditText base64String;
-    private String base64Image;
+    private Uri imagePath;
+    private String base64ImageString;
 
 
     private Integer department_id;
@@ -75,7 +76,6 @@ public class addDepartment extends AppCompatActivity {
         base64String = findViewById(R.id.base64Image);
         departmentImage = (ImageView) findViewById(R.id.departmentImage);
 
-
         String [] departmentType = {"Selecciona un tipo de departamento","LOFT", "STUDIO", "BASIC", "FAMILIAR", "PENTHOUSE"};
 
         ArrayAdapter<String> departmentTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, departmentType);
@@ -98,13 +98,11 @@ public class addDepartment extends AppCompatActivity {
                         return;
                     }
                     List<Commune>communes = response.body();
-
                     ArrayList<String> options = new ArrayList<String>();
                     options.add("Seccionar una comuna");
                     for (Commune i : communes){
                             options.add(i.getCommune());
                     }
-
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(addDepartment.this, android.R.layout.simple_spinner_item, options);
                     communeSpinner.setAdapter(adapter);
                 }
@@ -140,78 +138,87 @@ public class addDepartment extends AppCompatActivity {
         if (resultCode==RESULT_OK){
             Uri path = data.getData();
             departmentImage.setImageURI(path);
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), path);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bytes = stream.toByteArray();
-                base64Image = Base64.encodeToString(bytes, Base64.NO_WRAP);
-
-                base64String.setText(base64Image);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            imagePath = path;
         }
     }
 
     public void addDepartment(View view){
-        String departmetAddress = address.getText().toString();
-        Integer status = switchButton.isChecked() ? 1 : 0;
-        Integer departmentQtyRoom = Integer.parseInt(qtyRoom.getText().toString());
-        Integer departmentPrice = Integer.parseInt(price.getText().toString());
+
         String departmentCommune = communeSpinner.getSelectedItem().toString();
         String departmentType = departmentTypeSpinner.getSelectedItem().toString();
-        String sDescription = shortDescription.getText().toString();
-        String lDescription = longDescription.getText().toString();
-        String base64Image = base64String.getText().toString();
-        if (departmentCommune.equals("Seccionar una comuna")){
+        if (address.getText().toString().isEmpty()){
+            Toast.makeText(addDepartment.this,"Debe agregar la dirección del departamento", Toast.LENGTH_SHORT).show();
+        }else if(qtyRoom.getText().toString().isEmpty()){
+            Toast.makeText(addDepartment.this,"Debe indicar la cantidad de piezas", Toast.LENGTH_SHORT).show();
+        }else if(price.getText().toString().isEmpty()){
+            Toast.makeText(addDepartment.this,"Debe indicar el precio del departamento", Toast.LENGTH_SHORT).show();
+        }else if (departmentCommune.equals("Seccionar una comuna")){
             Toast.makeText(addDepartment.this,"Debe seleccionar una comuna", Toast.LENGTH_SHORT).show();
         }else if(departmentType.equals("Selecciona un tipo de departamento")){
             Toast.makeText(addDepartment.this,"Debe seleccionar un tipo de departamento", Toast.LENGTH_SHORT).show();
+        }else if(shortDescription.getText().toString().isEmpty()){
+            Toast.makeText(addDepartment.this,"Debe indicar una descripción corta", Toast.LENGTH_SHORT).show();
+        }else if (longDescription.getText().toString().isEmpty()){
+            Toast.makeText(addDepartment.this,"Debe indicar una descripcin larga", Toast.LENGTH_SHORT).show();
         }else{
-
+            String departmetAddress = address.getText().toString();
+            Integer departmentQtyRoom = Integer.parseInt(qtyRoom.getText().toString());
+            Integer departmentPrice = Integer.parseInt(price.getText().toString());
+            String sDescription = shortDescription.getText().toString();
+            String lDescription = longDescription.getText().toString();
             try {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imagePath);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                    byte[] bytes = stream.toByteArray();
+                    base64ImageString = Base64.encodeToString(bytes, Base64.NO_WRAP);
+
+                    base64String.setText(base64ImageString);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String base64Image = base64String.getText().toString();
                 Retrofit retrofit = new Retrofit.Builder()
-                       .baseUrl(splashScreen.URL)
-                       .addConverterFactory(GsonConverterFactory.create())
-                       .build();
-               DepartmentService departmentService = retrofit.create(DepartmentService.class);
-               String jsonData = "{\"address\":\""+departmetAddress+"\",\"status\":"+status+",\"qty_rooms\":"+departmentQtyRoom+",\"price\":"+departmentPrice+",\"commune\":\""+departmentCommune+"\",\"department_type\":\""+departmentType+"\",\"short_description\":\""+sDescription+"\",\"long_description\":\""+lDescription+"\",\"department_image\":\""+base64Image+"\"}";
-               RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
-               departmentService.addDepartment(requestBody).enqueue(new Callback<ResponseBody>() {
-                   @Override
-                   public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                       if (!response.isSuccessful()){
-                           Toast.makeText(addDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
-                           return;
-                       }
-                       try {
-                           Gson g = new Gson();
-                           OneResponse post_response = g.fromJson(response.body().string(), OneResponse.class);
-                           department_id = post_response.getResponse();
-                           if (department_id != 0) {
-                               Toast.makeText(addDepartment.this, "Departamento Agregado correctamente", Toast.LENGTH_SHORT).show();
-                               Intent i = new Intent(addDepartment.this, departmentPage.class);
-                               startActivity(i);
-                               finish();
-                           }else{
-                               Toast.makeText(addDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
-                           }
-                       } catch (IOException e) {
-                           e.printStackTrace();
-                       }
-                   }
+                        .baseUrl(splashScreen.URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                DepartmentService departmentService = retrofit.create(DepartmentService.class);
+                String jsonData = "{\"address\":\""+departmetAddress+"\",\"qty_rooms\":"+departmentQtyRoom+",\"price\":"+departmentPrice+",\"commune\":\""+departmentCommune+"\",\"department_type\":\""+departmentType+"\",\"short_description\":\""+sDescription+"\",\"long_description\":\""+lDescription+"\",\"department_image\":\""+base64Image+"\"}";
+                RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
+                departmentService.addDepartment(requestBody).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (!response.isSuccessful()){
+                            Toast.makeText(addDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        try {
+                            Gson g = new Gson();
+                            OneResponse post_response = g.fromJson(response.body().string(), OneResponse.class);
+                            department_id = post_response.getResponse();
+                            if (department_id != 0) {
+                                Toast.makeText(addDepartment.this, "Departamento Agregado correctamente", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(addDepartment.this, departmentPage.class);
+                                startActivity(i);
+                                finish();
+                            }else{
+                                Toast.makeText(addDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                   @Override
-                   public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                   }
-               });
-           }catch (Exception e){
-
-           }
+                    }
+                });
+            }catch (Exception e){
+            }
         }
-
     }
 
     public void goBack(View view){

@@ -51,21 +51,6 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="99dp"
-                    android:layout_height="25dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="Disponibilidad *"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    app:layout_constraintEnd_toStartOf="@+id/switchAvaible"
-                    app:layout_constraintHorizontal_bias="0.01"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/departmentDirection" />
-
-                <TextView
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,7 +91,7 @@
                     android:id="@+id/qtyRoom"
                     android:layout_width="316dp"
                     android:layout_height="36dp"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="32dp"
                     android:background="@drawable/shape_input"
                     android:ems="10"
                     android:hint="Cantidad de piezas"
@@ -114,7 +99,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.386"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8"
+                    app:layout_constraintTop_toBottomOf="@+id/departmentDirection"
                     tools:ignore="TouchTargetSizeCheck" />
 
                 <Spinner
@@ -128,18 +113,6 @@
                     app:layout_constraintHorizontal_bias="0.363"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/communeSpinner"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <Switch
-                    android:id="@+id/switchAvaible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="28dp"
-                    android:onClick="switchButton"
-                    android:text="No disponible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/departmentDirection"
                     tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView

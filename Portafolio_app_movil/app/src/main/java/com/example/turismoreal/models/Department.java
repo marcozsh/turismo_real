@@ -8,9 +8,6 @@ public class Department {
     @SerializedName("address")
     @Expose
     private String address;
-    @SerializedName("status")
-    @Expose
-    private String status;
     @SerializedName("qty_room")
     @Expose
     private int qtyRoom;
@@ -41,14 +38,6 @@ public class Department {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public int getQtyRoom() {
@@ -98,4 +87,18 @@ public class Department {
     public String getDepartmentImage() {return departmentImage;}
 
     public void setDepartmentImage(String departmentImage) {this.departmentImage = departmentImage;}
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "address='" + address + '\'' +
+                ", qtyRoom=" + qtyRoom +
+                ", price=" + price +
+                ", commune='" + commune + '\'' +
+                ", departmentType='" + departmentType + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", longDescription='" + longDescription + '\'' +
+                ", departmentImage='" + departmentImage + '\'' +
+                '}';
+    }
 }
