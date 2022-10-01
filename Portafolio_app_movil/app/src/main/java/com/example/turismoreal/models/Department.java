@@ -8,6 +8,9 @@ public class Department {
     @SerializedName("address")
     @Expose
     private String address;
+    @SerializedName("status")
+    @Expose
+    private String status;
     @SerializedName("qty_room")
     @Expose
     private int qtyRoom;
@@ -30,7 +33,13 @@ public class Department {
     @Expose
     private String departmentImage;
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getAddress() {
         return address;

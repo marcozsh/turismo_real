@@ -201,7 +201,6 @@ public class departmentPage extends AppCompatActivity {
         flag = 1;
         if (searchDepartment.getText().toString().isEmpty()){
             try {
-
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(splashScreen.URL)
                         .addConverterFactory(GsonConverterFactory.create())
