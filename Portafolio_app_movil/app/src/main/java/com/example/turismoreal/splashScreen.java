@@ -43,7 +43,6 @@ public class splashScreen extends AppCompatActivity {
         setTheme(R.style.Theme_TurismoReal);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
 

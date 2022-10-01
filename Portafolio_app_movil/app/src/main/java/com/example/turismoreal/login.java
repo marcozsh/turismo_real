@@ -65,7 +65,7 @@ public class login extends AppCompatActivity {
         editor.commit();
     }
 
-    public void buttonConnectToOracleDB(View view){
+    public void login(View view){
 
         String username = user.getText().toString();
         String pass =password.getText().toString();

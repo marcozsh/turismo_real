@@ -45,7 +45,6 @@ public class landingPage extends AppCompatActivity {
         setContentView(R.layout.landing_page);
 
         SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
 
         String rol = preferences.getString("userRol", "NO SESSION");
         String userName = preferences.getString("fullName", "NO SESSION");

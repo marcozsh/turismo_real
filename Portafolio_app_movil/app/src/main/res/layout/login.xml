@@ -43,7 +43,7 @@
         android:layout_height="51dp"
         android:layout_marginTop="200dp"
         android:layout_weight="1"
-        android:onClick="buttonConnectToOracleDB"
+        android:onClick="login"
         android:text="@string/welcome"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
