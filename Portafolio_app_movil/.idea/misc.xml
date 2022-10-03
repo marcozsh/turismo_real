@@ -20,6 +20,7 @@
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2545" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/ic_baseline_airport_shuttle_24.xml" value="0.2545" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.2545" />
+        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24_white.xml" value="0.294" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/ic_baseline_business_24.xml" value="0.2545" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/ic_baseline_commute_24.xml" value="0.2545" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/ic_departamentos.xml" value="0.2205" />
@@ -30,12 +31,14 @@
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/shape.xml" value="0.3985" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/shapeInput.xml" value="0.3985" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/drawable/shape_input.xml" value="0.3065" />
-        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_add_department.xml" value="0.67" />
+        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_add_department.xml" value="0.5099290780141844" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_add_extra_service.xml" value="0.5" />
-        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_department_page.xml" value="0.5" />
-        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_extra_services.xml" value="0.33" />
+        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_department_detail.xml" value="0.67" />
+        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_department_page.xml" value="0.4197994987468672" />
+        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_extra_services.xml" value="0.67" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/activity_splash_screen.xml" value="0.5" />
-        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/landing_page.xml" value="0.5" />
+        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/landing_page.xml" value="0.25" />
+        <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/loading_gif.xml" value="0.33" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/login.xml" value="0.5" />
         <entry key="..\:/Users/Maily/Desktop/Turismo Real/Portafolio_app_movil/app/src/main/res/layout/logout_popout.xml" value="0.5" />
         <entry key="..\:/Users/marcp/Desktop/turismo_real/Portafolio_app_movil/app/src/main/res/layout/activity_add_extra_service.xml" value="0.165625" />

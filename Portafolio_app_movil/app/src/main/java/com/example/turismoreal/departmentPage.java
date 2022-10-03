@@ -1,8 +1,11 @@
 package com.example.turismoreal;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +14,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,10 +27,7 @@ import android.widget.Toast;
 import com.example.turismoreal.Services.DepartmentService;
 import com.example.turismoreal.models.Department;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -41,6 +43,9 @@ public class departmentPage extends AppCompatActivity {
     private EditText searchDepartment;
     private LinearLayout container;
     private Integer flag = 1;
+
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +93,12 @@ public class departmentPage extends AppCompatActivity {
     }
 
     public void getDepartmentById(String commune){
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setCancelable(false);
+        final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
+        dialogBuilder.setView(loading);
+        dialog = dialogBuilder.create();
+        dialog.show();
         try{
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(splashScreen.URL)
@@ -96,7 +107,7 @@ public class departmentPage extends AppCompatActivity {
             DepartmentService departmentService = retrofit.create(DepartmentService.class);
             String jsonData = "{\"commune\":\""+commune+"\"}";
             RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
-            departmentService.getDeparmentById(requestBody).enqueue(new Callback<ResponseBody>() {
+            departmentService.getDepartmentByCommune(requestBody).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (!response.isSuccessful()){
@@ -104,6 +115,7 @@ public class departmentPage extends AppCompatActivity {
                         return;
                     }
                     try {
+                        dialog.dismiss();
                         Department[] departments = new Gson().fromJson(response.body().string(), Department[].class);
                         for (Department department : departments){
                             LinearLayout departmentContainer = new LinearLayout(departmentPage.this);
@@ -174,7 +186,7 @@ public class departmentPage extends AppCompatActivity {
                             departmentContainer.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    message(department.getAddress());
+                                    goDepartmentDetail(department.getId());
                                 }
                             });
                         }
@@ -198,6 +210,12 @@ public class departmentPage extends AppCompatActivity {
 
     public void departmentList(){
         container.removeAllViews();
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setCancelable(false);
+        final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
+        dialogBuilder.setView(loading);
+        dialog = dialogBuilder.create();
+        dialog.show();
         flag = 1;
         if (searchDepartment.getText().toString().isEmpty()){
             try {
@@ -215,6 +233,7 @@ public class departmentPage extends AppCompatActivity {
                             Toast.makeText(departmentPage.this, response.code(), Toast.LENGTH_LONG);
                             return;
                         }
+                        dialog.dismiss();
                         List<Department>departments = response.body();
                         for (Department department : departments){
                             LinearLayout departmentContainer = new LinearLayout(departmentPage.this);
@@ -285,7 +304,7 @@ public class departmentPage extends AppCompatActivity {
                             departmentContainer.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    message(department.getAddress());
+                                    goDepartmentDetail(department.getId());
                                 }
                             });
                         }
@@ -304,9 +323,60 @@ public class departmentPage extends AppCompatActivity {
 
     }
 
+    public void goDepartmentDetail(Integer id){
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setCancelable(false);
+        final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
+        dialogBuilder.setView(loading);
+        dialog = dialogBuilder.create();
+        dialog.show();
 
-    public void message(String direccion){
-        Toast.makeText(this, "madafaca -> " + direccion, Toast.LENGTH_SHORT).show();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(splashScreen.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        DepartmentService departmentService = retrofit.create(DepartmentService.class);
+        String jsonData = "{\"id\":\""+id+"\"}";
+        RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
+        departmentService.getDepartmentById(requestBody).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful()){
+                    Toast.makeText(departmentPage.this, response.code(), Toast.LENGTH_LONG);
+                    return;
+                }
+                try {
+                    Department[] departments = new Gson().fromJson(response.body().string(), Department[].class);
+                    for (Department department : departments){
+                        SharedPreferences preferences = getSharedPreferences("department", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt("id",department.getId());
+                        editor.putString("commune", department.getCommune());
+                        editor.putInt("qty_rooms", department.getQtyRoom());
+                        editor.putString("department_type", department.getDepartmentType());
+                        editor.putString("department_image", department.getDepartmentImage());
+                        editor.putString("address", department.getAddress());
+                        editor.putInt("price", department.getPrice());
+                        editor.commit();
+                        Intent i = new Intent(departmentPage.this ,departmentDetail.class);
+                        startActivity(i);
+                        dialog.dismiss();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+
     }
 
     public void goBack(View view){
@@ -324,7 +394,6 @@ public class departmentPage extends AppCompatActivity {
     public void addDepartment(View view){
         Intent i = new Intent(this, addDepartment.class);
         startActivity(i);
-        finish();
     }
 
     public void deleteSearch(View view){

@@ -5,12 +5,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Department {
 
+    @SerializedName("id")
+    @Expose
+    private Integer id;
     @SerializedName("address")
     @Expose
     private String address;
-    @SerializedName("status")
+    @SerializedName("is_new")
     @Expose
-    private String status;
+    private Integer isNew;
     @SerializedName("qty_room")
     @Expose
     private int qtyRoom;
@@ -33,12 +36,21 @@ public class Department {
     @Expose
     private String departmentImage;
 
-    public String getStatus() {
-        return status;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(Integer isNew) {
+        this.isNew = isNew;
     }
 
     public String getAddress() {

@@ -1,5 +1,6 @@
 package com.example.turismoreal;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,12 +28,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class extraServices extends AppCompatActivity {
 
     private LinearLayout principalLayout;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_TurismoReal);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extra_services);
         principalLayout = findViewById(R.id.principalLayout);
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setCancelable(false);
+        final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
+        dialogBuilder.setView(loading);
+        dialog = dialogBuilder.create();
+        dialog.show();
         try {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(splashScreen.URL)
@@ -49,6 +58,7 @@ public class extraServices extends AppCompatActivity {
                         Toast.makeText(com.example.turismoreal.extraServices.this, response.code(), Toast.LENGTH_LONG);
                         return;
                     }
+                    dialog.dismiss();
                     List<ExtraService> allServices = response.body();
                     for (ExtraService services : allServices) {
                         //title
@@ -155,11 +165,16 @@ public class extraServices extends AppCompatActivity {
     public void addService (View view){
         Intent i = new Intent(this, addExtraService.class);
         startActivity(i);
-        finish();
     }
 
     public void goBack(View view){
         Intent i = new Intent(this, landingPage.class);
+        startActivity(i);
+        finish();
+    }
+
+    public void departmentMenu(View view){
+        Intent i = new Intent(this, departmentPage.class);
         startActivity(i);
         finish();
     }

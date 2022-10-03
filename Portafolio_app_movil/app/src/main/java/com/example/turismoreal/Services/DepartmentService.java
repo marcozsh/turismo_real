@@ -16,8 +16,14 @@ public interface DepartmentService {
     @GET("department/")
     Call<List<Department>> getDepartment();
 
+    @POST("department_inventory/")
+    Call<ResponseBody> getDepartmentInventory(@Body RequestBody requestBody);
+
     @POST("department/")
-    Call<ResponseBody> getDeparmentById(@Body RequestBody requestBody);
+    Call<ResponseBody> getDepartmentByCommune(@Body RequestBody requestBody);
+
+    @POST("department/id/")
+    Call<ResponseBody> getDepartmentById(@Body RequestBody requestBody);
 
     @POST("department/add/")
     Call<ResponseBody> addDepartment(@Body RequestBody requestBody);

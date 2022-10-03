@@ -133,12 +133,10 @@ public class landingPage extends AppCompatActivity {
     public void departmentMenu(View view){
         Intent i = new Intent(this, departmentPage.class);
         startActivity(i);
-        finish();
     }
 
     public void extraServicesMenu(View view){
         Intent i = new Intent(this, extraServices.class);
         startActivity(i);
-        finish();
     }
 }
