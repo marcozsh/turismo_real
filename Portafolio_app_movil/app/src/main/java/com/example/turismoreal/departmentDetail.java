@@ -52,7 +52,6 @@ public class departmentDetail extends AppCompatActivity {
     private ImageView departmentImage;
 
     private TextView qtyRooms;
-    private TextView departmentServices;
     private TextView status;
     private TextView lastMaintance;
     private TextView departmentPrice;
@@ -75,7 +74,6 @@ public class departmentDetail extends AppCompatActivity {
         address = findViewById(R.id.address);
         departmentImage = findViewById(R.id.departmentImageDetail);
         qtyRooms = findViewById(R.id.qtyRooms);
-        departmentServices = findViewById(R.id.departmentServices);
         status = findViewById(R.id.status);
         lastMaintance = findViewById(R.id.lastMaintance);
         departmentPrice = findViewById(R.id.departmentPrice);
@@ -269,7 +267,14 @@ public class departmentDetail extends AppCompatActivity {
         Integer price = preferences.getInt("price", 0);
         String commune = preferences.getString("commune", "SIN REGISTRO");
         String departmentAddress = preferences.getString("address", "SIN REGISTRO");
+        Integer isNew = preferences.getInt("is_new", -1);
 
+        if (isNew != -1){
+            String departmentStatus = isNew == 1 ? "Nuevo" :"Reservado";
+            status.setText(departmentStatus);
+        }else{
+            status.setText("SIN REGISTRO");
+        }
         communeGoBack.setText(commune);
         address.setText(departmentAddress + ", " + commune);
         qtyRooms.setText(qty_rooms.toString());

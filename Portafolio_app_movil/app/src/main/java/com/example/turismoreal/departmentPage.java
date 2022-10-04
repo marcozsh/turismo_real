@@ -14,8 +14,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -86,13 +84,13 @@ public class departmentPage extends AppCompatActivity {
         if(!searchDepartment.getText().toString().isEmpty()){
             flag = 0;
             container.removeAllViews();
-            getDepartmentById(capitalize(searchDepartment.getText().toString()));
+            getDepartmentByCommune(capitalize(searchDepartment.getText().toString()));
         }else{
             Toast.makeText(this, "Debe digitar la comuna a buscar", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void getDepartmentById(String commune){
+    public void getDepartmentByCommune(String commune){
         dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setCancelable(false);
         final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
@@ -357,6 +355,7 @@ public class departmentPage extends AppCompatActivity {
                         editor.putString("department_image", department.getDepartmentImage());
                         editor.putString("address", department.getAddress());
                         editor.putInt("price", department.getPrice());
+                        editor.putInt("is_new", department.getIsNew());
                         editor.commit();
                         Intent i = new Intent(departmentPage.this ,departmentDetail.class);
                         startActivity(i);

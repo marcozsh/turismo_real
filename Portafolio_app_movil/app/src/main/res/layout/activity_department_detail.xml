@@ -307,7 +307,7 @@
                         android:id="@+id/qtyRooms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="156dp"
+                        android:layout_marginStart="207dp"
                         android:layout_marginTop="24dp"
                         android:text="Prueba"
                         android:textColor="#000000"
@@ -315,20 +315,6 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toEndOf="@+id/textView19"
                         app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-                    <TextView
-                        android:id="@+id/departmentServices"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="156dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="64dp"
-                        android:text="Prueba"
-                        android:textColor="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView20"
-                        app:layout_constraintTop_toBottomOf="@+id/qtyRooms" />
 
                     <TextView
                         android:id="@+id/lastMaintance"
@@ -381,18 +367,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/textView23"
-                        app:layout_constraintTop_toBottomOf="@+id/departmentServices" />
-
-                    <TextView
-                        android:id="@+id/textView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Servicios"
-                        android:textColor="#7F868A"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+                        app:layout_constraintTop_toBottomOf="@+id/qtyRooms" />
 
                     <TextView
                         android:id="@+id/textView22"
@@ -414,7 +389,7 @@
                         android:text="Estado"
                         android:textColor="#7F868A"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
                     <TextView
                         android:id="@+id/textView24"
