@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".administrator.AddDepartmentInventory">
+
+    <EditText
+        android:id="@+id/qty"
+        android:layout_width="316dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/shape_input"
+        android:ems="10"
+        android:hint="Cantidad"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productSpinner2"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/addProduct"
+        android:layout_width="239dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="28dp"
+        android:foregroundTint="#0090FF"
+        android:onClick="addProduct"
+        android:text="+ AGREGAR PRODUCTOS"
+        android:textAlignment="center"
+        android:textColor="#0090FF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReportes5"
+        app:layout_constraintVertical_bias="0.056"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btnReportes5"
+        android:layout_width="296dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:layout_weight="1"
+        android:onClick="addDepartmentInventory"
+        android:text="@string/add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qty" />
+
+    <Spinner
+        android:id="@+id/productSpinner2"
+        android:layout_width="316dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/shape_input"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productCategorySpinner"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/productoTexto2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categoría"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/productCategorySpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/productoTexto3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Producto"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/productSpinner2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/productoTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cantidad"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/qty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="39dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+        app:layout_constraintBottom_toBottomOf="@+id/productCategorySpinner"
+        app:layout_constraintEnd_toEndOf="@+id/productCategorySpinner"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/productCategorySpinner"
+        app:layout_constraintTop_toTopOf="@+id/productCategorySpinner"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Spinner
+        android:id="@+id/productCategorySpinner"
+        android:layout_width="316dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/shape_input"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryGoBack"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="39dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+        app:layout_constraintBottom_toBottomOf="@+id/productCategorySpinner"
+        app:layout_constraintEnd_toEndOf="@+id/productCategorySpinner"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/productCategorySpinner"
+        app:layout_constraintTop_toTopOf="@+id/productCategorySpinner"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="39dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+        app:layout_constraintBottom_toBottomOf="@+id/productSpinner2"
+        app:layout_constraintEnd_toEndOf="@+id/productSpinner2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/productSpinner2"
+        app:layout_constraintTop_toTopOf="@+id/productSpinner2" />
+
+    <TextView
+        android:id="@+id/inventoryGoBack"
+        android:layout_width="212dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
+        android:onClick="goBack"
+        android:text="Agregar Inventario"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>

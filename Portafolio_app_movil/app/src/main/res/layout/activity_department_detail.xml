@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".departmentDetail">
+    tools:context=".administrator.DepartmentDetail">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/administratorsMenus"
         android:layout_width="0dp"
         android:layout_height="68dp"
         android:background="@color/black"
@@ -141,12 +141,12 @@
         android:textColor="@color/admin_back"
         android:textSize="10sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="TouchTargetSizeCheck" />
 
     <View
@@ -170,6 +170,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/btnAddInventory"
+        android:layout_width="239dp"
+        android:layout_height="29dp"
+        android:foregroundTint="#0090FF"
+        android:onClick="addDepartmentInventory"
+        android:text="+ AGREGAR INVENTARIO"
+        android:textAlignment="center"
+        android:textColor="#0090FF"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/administratorsMenus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divider6"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
@@ -185,10 +202,193 @@
             android:layout_height="match_parent">
 
             <ScrollView
+                android:id="@+id/container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="SpeakableTextPresentCheck">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:id="@+id/btnMaintenance"
+                        android:layout_width="179dp"
+                        android:layout_height="64dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:onClick="registerMaintenance"
+                        android:text="Registrar Mantenimiento"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.502"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView22"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <Button
+                        android:id="@+id/btnAvailable"
+                        android:layout_width="179dp"
+                        android:layout_height="64dp"
+                        android:layout_weight="1"
+                        android:onClick="departmentAvailable"
+                        android:text="Marcar como disponible"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.502"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/btnMaintenance"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="300dp"
+                        android:text="INFORMACIÓN"
+                        android:textColor="#000000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.097"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.372" />
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginTop="24dp"
+                        android:text="N° Piezas"
+                        android:textColor="#7F868A"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+                    <TextView
+                        android:id="@+id/qtyRooms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="64dp"
+                        android:text="Prueba"
+                        android:textColor="#000000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView19"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+                    <TextView
+                        android:id="@+id/lastMaintenance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="64dp"
+                        android:text="Prueba"
+                        android:textColor="#000000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView24"
+                        app:layout_constraintTop_toBottomOf="@+id/status" />
+
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="64dp"
+                        android:text="Prueba"
+                        android:textColor="#000000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView22"
+                        app:layout_constraintTop_toBottomOf="@+id/departmentPrice" />
+
+                    <TextView
+                        android:id="@+id/departmentPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="64dp"
+                        android:text="Prueba"
+                        android:textColor="#000000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView25"
+                        app:layout_constraintTop_toBottomOf="@+id/lastMaintenance" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="64dp"
+                        android:text="Prueba"
+                        android:textColor="#000000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/textView23"
+                        app:layout_constraintTop_toBottomOf="@+id/qtyRooms" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Tipo de departamento"
+                        android:textColor="#7F868A"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Estado"
+                        android:textColor="#7F868A"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Ult. Mantención"
+                        android:textColor="#7F868A"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Precio"
+                        android:textColor="#7F868A"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+            <ScrollView
                 android:id="@+id/container2"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="invisible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -261,160 +461,6 @@
                 </TableRow>
 
             </TableLayout>
-
-            <ScrollView
-                android:id="@+id/container"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-                app:layout_constraintVertical_bias="0.0"
-                tools:ignore="SpeakableTextPresentCheck">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="300dp"
-                        android:text="INFORMACIÓN"
-                        android:textColor="#000000"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.052"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="24dp"
-                        android:text="N° Piezas"
-                        android:textColor="#7F868A"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-                    <TextView
-                        android:id="@+id/qtyRooms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="207dp"
-                        android:layout_marginTop="24dp"
-                        android:text="Prueba"
-                        android:textColor="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView19"
-                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-                    <TextView
-                        android:id="@+id/lastMaintance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="64dp"
-                        android:text="Prueba"
-                        android:textColor="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView24"
-                        app:layout_constraintTop_toBottomOf="@+id/status" />
-
-                    <TextView
-                        android:id="@+id/type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="64dp"
-                        android:text="Prueba"
-                        android:textColor="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView22"
-                        app:layout_constraintTop_toBottomOf="@+id/departmentPrice" />
-
-                    <TextView
-                        android:id="@+id/departmentPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="64dp"
-                        android:text="Prueba"
-                        android:textColor="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView25"
-                        app:layout_constraintTop_toBottomOf="@+id/lastMaintance" />
-
-                    <TextView
-                        android:id="@+id/status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="156dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="64dp"
-                        android:text="Prueba"
-                        android:textColor="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
-                        app:layout_constraintStart_toEndOf="@+id/textView23"
-                        app:layout_constraintTop_toBottomOf="@+id/qtyRooms" />
-
-                    <TextView
-                        android:id="@+id/textView22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Tipo de departamento"
-                        android:textColor="#7F868A"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Estado"
-                        android:textColor="#7F868A"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Ult. Mantención"
-                        android:textColor="#7F868A"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-                    <TextView
-                        android:id="@+id/textView25"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="36dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Precio"
-                        android:textColor="#7F868A"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,7 +16,7 @@ import java.io.IOException;
 
 //login interface
 import com.example.turismoreal.Services.LoginService;
-import com.example.turismoreal.Services.SendLogin;
+import com.example.turismoreal.models.SendLogin;
 import com.example.turismoreal.models.Employee;
 import com.google.gson.Gson;
 
@@ -30,7 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class login extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     private EditText user;
     private EditText password;
@@ -73,7 +73,7 @@ public class login extends AppCompatActivity {
             gib.setVisibility(view.VISIBLE);
             try {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(splashScreen.URL)
+                        .baseUrl(SplashScreen.URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 LoginService loginService = retrofit.create(LoginService.class);
@@ -97,8 +97,8 @@ public class login extends AppCompatActivity {
                                             Gson g = new Gson();
                                             Employee employee = g.fromJson(response.body().string(), Employee.class);
                                             saveSession(user_id, employee.getFullName(), employee.getPosition(),employee.getSessionId());
-                                            Toast.makeText(login.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
-                                            Intent i = new Intent(login.this, landingPage.class);
+                                            Toast.makeText(Login.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(Login.this, LandingPage.class);
                                             startActivity(i);
                                             finish();
                                         } catch (IOException e) {
@@ -114,7 +114,7 @@ public class login extends AppCompatActivity {
 
 
                             }else{
-                                Toast.makeText(login.this, "Usuario Incorrecto", Toast.LENGTH_LONG).show();
+                                Toast.makeText(Login.this, "Usuario Incorrecto", Toast.LENGTH_LONG).show();
                                 gib.setVisibility(view.INVISIBLE);
                             }
                         }catch(NullPointerException | IOException e){

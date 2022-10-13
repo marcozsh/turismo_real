@@ -18,24 +18,45 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".departmentDetail"
+            android:name=".staff.CheckOut"
             android:exported="false" />
         <activity
-            android:name=".addDepartment"
+            android:name=".staff.CheckIn"
+            android:exported="false" />
+        <activity
+            android:name=".staff.CheckOutMenu"
+            android:exported="false" />
+        <activity
+            android:name=".staff.CheckInMenu"
+            android:exported="false" />
+        <activity
+            android:name=".administrator.AddProduct"
+            android:exported="false" />
+        <activity
+            android:name=".administrator.AddDepartmentInventory"
+            android:exported="false" />
+        <activity
+            android:name=".administrator.MaintenanceRegister"
+            android:exported="false" />
+        <activity
+            android:name=".administrator.DepartmentDetail"
+            android:exported="false" />
+        <activity
+            android:name=".administrator.AddDepartment"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".departmentPage"
+            android:name=".administrator.DepartmentPage"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".addExtraService"
+            android:name=".administrator.AddExtraService"
             android:exported="false" />
         <activity
-            android:name=".extraServices"
+            android:name=".administrator.ExtraServicePage"
             android:exported="false" />
         <activity
-            android:name=".splashScreen"
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,10 +65,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".landingPage"
+            android:name=".LandingPage"
             android:exported="false" />
         <activity
-            android:name=".login"
+            android:name=".Login"
             android:exported="false" />
     </application>
 

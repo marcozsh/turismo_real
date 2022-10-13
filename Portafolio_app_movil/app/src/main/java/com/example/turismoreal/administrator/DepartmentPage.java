@@ -1,4 +1,4 @@
-package com.example.turismoreal;
+package com.example.turismoreal.administrator;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +22,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.turismoreal.R;
 import com.example.turismoreal.Services.DepartmentService;
+import com.example.turismoreal.LandingPage;
 import com.example.turismoreal.models.Department;
+import com.example.turismoreal.models.DepartmentDisponibility;
+import com.example.turismoreal.SplashScreen;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -37,7 +41,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class departmentPage extends AppCompatActivity {
+public class DepartmentPage extends AppCompatActivity {
     private EditText searchDepartment;
     private LinearLayout container;
     private Integer flag = 1;
@@ -99,7 +103,7 @@ public class departmentPage extends AppCompatActivity {
         dialog.show();
         try{
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(splashScreen.URL)
+                    .baseUrl(SplashScreen.URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             DepartmentService departmentService = retrofit.create(DepartmentService.class);
@@ -109,29 +113,29 @@ public class departmentPage extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (!response.isSuccessful()){
-                        Toast.makeText(departmentPage.this, response.code(), Toast.LENGTH_LONG);
+                        Toast.makeText(DepartmentPage.this, response.code(), Toast.LENGTH_LONG);
                         return;
                     }
                     try {
                         dialog.dismiss();
                         Department[] departments = new Gson().fromJson(response.body().string(), Department[].class);
                         for (Department department : departments){
-                            LinearLayout departmentContainer = new LinearLayout(departmentPage.this);
-                            TableLayout departmentTable = new TableLayout(departmentPage.this);
+                            LinearLayout departmentContainer = new LinearLayout(DepartmentPage.this);
+                            TableLayout departmentTable = new TableLayout(DepartmentPage.this);
 
-                            ImageView departmentPreview = new ImageView(departmentPage.this);
+                            ImageView departmentPreview = new ImageView(DepartmentPage.this);
 
-                            TableRow title = new TableRow(departmentPage.this);
-                            TextView titleText = new TextView(departmentPage.this);
+                            TableRow title = new TableRow(DepartmentPage.this);
+                            TextView titleText = new TextView(DepartmentPage.this);
 
-                            TableRow space = new TableRow(departmentPage.this);
-                            TextView spaceRow = new TextView(departmentPage.this);
+                            TableRow space = new TableRow(DepartmentPage.this);
+                            TextView spaceRow = new TextView(DepartmentPage.this);
 
-                            TableRow shortDescription = new TableRow(departmentPage.this);
-                            TextView shortDescriptionText = new TextView(departmentPage.this);
+                            TableRow shortDescription = new TableRow(DepartmentPage.this);
+                            TextView shortDescriptionText = new TextView(DepartmentPage.this);
 
-                            TableRow price = new TableRow(departmentPage.this);
-                            TextView priceText = new TextView(departmentPage.this);
+                            TableRow price = new TableRow(DepartmentPage.this);
+                            TextView priceText = new TextView(DepartmentPage.this);
 
                             if(department.getDepartmentImage() == null){
                                 departmentPreview.setBackgroundResource(R.drawable.department_sample);
@@ -154,7 +158,7 @@ public class departmentPage extends AppCompatActivity {
                             title.addView(titleText);
 
                             departmentContainer.addView(departmentPreview);
-                            TextView spaceImg = new TextView(departmentPage.this);
+                            TextView spaceImg = new TextView(DepartmentPage.this);
                             spaceImg.setText(" ");
                             departmentContainer.addView(spaceImg);
                             departmentTable.addView(title);
@@ -176,7 +180,7 @@ public class departmentPage extends AppCompatActivity {
 
 
                             departmentContainer.addView(departmentTable);
-                            TextView containerSpace = new TextView(departmentPage.this);
+                            TextView containerSpace = new TextView(DepartmentPage.this);
                             containerSpace.setText(" ");
 
                             container.addView(departmentContainer);
@@ -191,12 +195,9 @@ public class departmentPage extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
-
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
                 }
             });
         }catch (Exception e){
@@ -218,7 +219,7 @@ public class departmentPage extends AppCompatActivity {
         if (searchDepartment.getText().toString().isEmpty()){
             try {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(splashScreen.URL)
+                        .baseUrl(SplashScreen.URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -228,28 +229,28 @@ public class departmentPage extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<Department>> call, Response<List<Department>> response) {
                         if (!response.isSuccessful()){
-                            Toast.makeText(departmentPage.this, response.code(), Toast.LENGTH_LONG);
+                            Toast.makeText(DepartmentPage.this, response.code(), Toast.LENGTH_LONG);
                             return;
                         }
                         dialog.dismiss();
                         List<Department>departments = response.body();
                         for (Department department : departments){
-                            LinearLayout departmentContainer = new LinearLayout(departmentPage.this);
-                            TableLayout departmentTable = new TableLayout(departmentPage.this);
+                            LinearLayout departmentContainer = new LinearLayout(DepartmentPage.this);
+                            TableLayout departmentTable = new TableLayout(DepartmentPage.this);
 
-                            ImageView departmentPreview = new ImageView(departmentPage.this);
+                            ImageView departmentPreview = new ImageView(DepartmentPage.this);
 
-                            TableRow title = new TableRow(departmentPage.this);
-                            TextView titleText = new TextView(departmentPage.this);
+                            TableRow title = new TableRow(DepartmentPage.this);
+                            TextView titleText = new TextView(DepartmentPage.this);
 
-                            TableRow space = new TableRow(departmentPage.this);
-                            TextView spaceRow = new TextView(departmentPage.this);
+                            TableRow space = new TableRow(DepartmentPage.this);
+                            TextView spaceRow = new TextView(DepartmentPage.this);
 
-                            TableRow shortDescription = new TableRow(departmentPage.this);
-                            TextView shortDescriptionText = new TextView(departmentPage.this);
+                            TableRow shortDescription = new TableRow(DepartmentPage.this);
+                            TextView shortDescriptionText = new TextView(DepartmentPage.this);
 
-                            TableRow price = new TableRow(departmentPage.this);
-                            TextView priceText = new TextView(departmentPage.this);
+                            TableRow price = new TableRow(DepartmentPage.this);
+                            TextView priceText = new TextView(DepartmentPage.this);
 
                             if(department.getDepartmentImage() == null){
                                 departmentPreview.setBackgroundResource(R.drawable.department_sample);
@@ -272,7 +273,7 @@ public class departmentPage extends AppCompatActivity {
                             title.addView(titleText);
 
                             departmentContainer.addView(departmentPreview);
-                            TextView spaceImg = new TextView(departmentPage.this);
+                            TextView spaceImg = new TextView(DepartmentPage.this);
                             spaceImg.setText(" ");
                             departmentContainer.addView(spaceImg);
                             departmentTable.addView(title);
@@ -294,7 +295,7 @@ public class departmentPage extends AppCompatActivity {
 
 
                             departmentContainer.addView(departmentTable);
-                            TextView containerSpace = new TextView(departmentPage.this);
+                            TextView containerSpace = new TextView(DepartmentPage.this);
                             containerSpace.setText(" ");
 
                             container.addView(departmentContainer);
@@ -330,7 +331,7 @@ public class departmentPage extends AppCompatActivity {
         dialog.show();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(splashScreen.URL)
+                .baseUrl(SplashScreen.URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         DepartmentService departmentService = retrofit.create(DepartmentService.class);
@@ -340,7 +341,7 @@ public class departmentPage extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (!response.isSuccessful()){
-                    Toast.makeText(departmentPage.this, response.code(), Toast.LENGTH_LONG);
+                    Toast.makeText(DepartmentPage.this, response.code(), Toast.LENGTH_LONG);
                     return;
                 }
                 try {
@@ -356,10 +357,36 @@ public class departmentPage extends AppCompatActivity {
                         editor.putString("address", department.getAddress());
                         editor.putInt("price", department.getPrice());
                         editor.putInt("is_new", department.getIsNew());
-                        editor.commit();
-                        Intent i = new Intent(departmentPage.this ,departmentDetail.class);
-                        startActivity(i);
-                        dialog.dismiss();
+
+                        String json = "{\"department_id\":"+department.getId()+"}";
+                        RequestBody requestBody2 = RequestBody.create(MediaType.parse("aplication/json"), json);
+                        departmentService.getNotAvailableDates(requestBody2).enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                               if (!response.isSuccessful()){
+                                   Toast.makeText(DepartmentPage.this, response.code(), Toast.LENGTH_LONG);
+                                   return;
+                               }
+                               try{
+                                   DepartmentDisponibility[] disponibility = new Gson().fromJson(response.body().string(), DepartmentDisponibility[].class);
+                                   for (DepartmentDisponibility dates : disponibility){
+                                       editor.putString("check_in",dates.getCheckIn());
+                                       editor.putString("check_out",dates.getCheckOut());
+                                       editor.putString("maintenance_start",dates.getMaintenanceStart());
+                                       editor.putString("maintenance_finish",dates.getMaintenanceFinish());
+                                       editor.commit();
+                                       Intent i = new Intent(DepartmentPage.this , DepartmentDetail.class);
+                                       startActivity(i);
+                                       dialog.dismiss();
+                                   }
+                               }catch (Exception e){
+                                   e.printStackTrace();
+                               }
+                            }
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {}
+                        });
+
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -379,19 +406,19 @@ public class departmentPage extends AppCompatActivity {
     }
 
     public void goBack(View view){
-        Intent i = new Intent(this, landingPage.class);
+        Intent i = new Intent(this, LandingPage.class);
         startActivity(i);
         finish();
     }
 
     public void extraServicesMenu(View view){
-        Intent i = new Intent(this, extraServices.class);
+        Intent i = new Intent(this, ExtraServicePage.class);
         startActivity(i);
         finish();
     }
 
     public void addDepartment(View view){
-        Intent i = new Intent(this, addDepartment.class);
+        Intent i = new Intent(this, AddDepartment.class);
         startActivity(i);
     }
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:onClick="goCheckInPage"
+    tools:context=".staff.CheckInMenu">
+
+    <Button
+        android:id="@+id/btnReports3"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="108dp"
+        android:layout_weight="1"
+        android:onClick="goCheckInPage"
+        android:text="Validar con N° de Folio"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logout4" />
+
+    <Button
+        android:id="@+id/btnReports4"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:layout_weight="1"
+        android:text="Validar con Código QR"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReports3" />
+
+    <TextView
+        android:id="@+id/logout4"
+        android:layout_width="169dp"
+        android:layout_height="27dp"
+        android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
+        android:onClick="goBack"
+        android:text="Menú - Check-In"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026"
+        tools:ignore="TouchTargetSizeCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>

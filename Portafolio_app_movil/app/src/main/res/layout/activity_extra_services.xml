@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".extraServices">
+    tools:context=".administrator.ExtraServicePage">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/administratorsMenus"
         android:layout_width="0dp"
         android:layout_height="68dp"
         android:background="@color/black"

@@ -1,4 +1,4 @@
-package com.example.turismoreal;
+package com.example.turismoreal.administrator;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +14,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.turismoreal.Services.ExtraServices;
-import com.example.turismoreal.models.ExtraService;
+import com.example.turismoreal.R;
+import com.example.turismoreal.LandingPage;
+import com.example.turismoreal.SplashScreen;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class extraServices extends AppCompatActivity {
+public class ExtraServicePage extends AppCompatActivity {
 
     private LinearLayout principalLayout;
     private AlertDialog.Builder dialogBuilder;
@@ -44,27 +45,26 @@ public class extraServices extends AppCompatActivity {
         dialog.show();
         try {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(splashScreen.URL)
+                    .baseUrl(SplashScreen.URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-
-            ExtraServices extraServices = retrofit.create(ExtraServices.class);
-            Call<List<ExtraService>> AllServices = extraServices.getExtraServices();
-            AllServices.enqueue(new Callback<List<ExtraService>>() {
+            com.example.turismoreal.Services.ExtraServices extraServices = retrofit.create(com.example.turismoreal.Services.ExtraServices.class);
+            Call<List<com.example.turismoreal.models.ExtraService>> AllServices = extraServices.getExtraServices();
+            AllServices.enqueue(new Callback<List<com.example.turismoreal.models.ExtraService>>() {
 
                 @Override
-                public void onResponse(Call<List<ExtraService>> call, Response<List<ExtraService>> response) {
+                public void onResponse(Call<List<com.example.turismoreal.models.ExtraService>> call, Response<List<com.example.turismoreal.models.ExtraService>> response) {
                     if (!response.isSuccessful()) {
-                        Toast.makeText(com.example.turismoreal.extraServices.this, response.code(), Toast.LENGTH_LONG);
+                        Toast.makeText(ExtraServicePage.this, response.code(), Toast.LENGTH_LONG);
                         return;
                     }
                     dialog.dismiss();
-                    List<ExtraService> allServices = response.body();
-                    for (ExtraService services : allServices) {
+                    List<com.example.turismoreal.models.ExtraService> allServices = response.body();
+                    for (com.example.turismoreal.models.ExtraService services : allServices) {
                         //title
-                        TableLayout titleTableLauout = new TableLayout(com.example.turismoreal.extraServices.this);
-                        TableRow titleBox = new TableRow(com.example.turismoreal.extraServices.this);
-                        TextView nombre = new TextView(com.example.turismoreal.extraServices.this);
+                        TableLayout titleTableLauout = new TableLayout(ExtraServicePage.this);
+                        TableRow titleBox = new TableRow(ExtraServicePage.this);
+                        TextView nombre = new TextView(ExtraServicePage.this);
 
                         nombre.setText(services.getName());
                         nombre.setTextColor(Color.parseColor("#0090FF"));
@@ -74,32 +74,32 @@ public class extraServices extends AppCompatActivity {
                         titleBox.addView(nombre);
 
                         //atributes
-                        TableLayout principalTable = new TableLayout(com.example.turismoreal.extraServices.this);
-                        TableRow containerRow = new TableRow(com.example.turismoreal.extraServices.this);
-                        TableRow containerRow2 = new TableRow(com.example.turismoreal.extraServices.this);
-                        TableRow containerRow3 = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableLayout principalTable = new TableLayout(ExtraServicePage.this);
+                        TableRow containerRow = new TableRow(ExtraServicePage.this);
+                        TableRow containerRow2 = new TableRow(ExtraServicePage.this);
+                        TableRow containerRow3 = new TableRow(ExtraServicePage.this);
                         containerRow.setGravity(Gravity.LEFT);
-                        TableRow atributeRow = new TableRow(com.example.turismoreal.extraServices.this);
-                        TableRow atributeRow2 = new TableRow(com.example.turismoreal.extraServices.this);
-                        TableRow atributeRow3 = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow atributeRow = new TableRow(ExtraServicePage.this);
+                        TableRow atributeRow2 = new TableRow(ExtraServicePage.this);
+                        TableRow atributeRow3 = new TableRow(ExtraServicePage.this);
 
-                        TableRow spaceRow = new TableRow(com.example.turismoreal.extraServices.this);
-                        TableRow spaceRow2 = new TableRow(com.example.turismoreal.extraServices.this);
-                        TableRow spaceRow3 = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow spaceRow = new TableRow(ExtraServicePage.this);
+                        TableRow spaceRow2 = new TableRow(ExtraServicePage.this);
+                        TableRow spaceRow3 = new TableRow(ExtraServicePage.this);
 
-                        TableRow valueRow = new TableRow(com.example.turismoreal.extraServices.this);
-                        TableRow valueRow2 = new TableRow(com.example.turismoreal.extraServices.this);
-                        TableRow valueRow3 = new TableRow(com.example.turismoreal.extraServices.this);
+                        TableRow valueRow = new TableRow(ExtraServicePage.this);
+                        TableRow valueRow2 = new TableRow(ExtraServicePage.this);
+                        TableRow valueRow3 = new TableRow(ExtraServicePage.this);
 
-                        TextView atribute1 = new TextView(com.example.turismoreal.extraServices.this);
-                        TextView atribute2 = new TextView(com.example.turismoreal.extraServices.this);
-                        TextView atribute3 = new TextView(com.example.turismoreal.extraServices.this);
+                        TextView atribute1 = new TextView(ExtraServicePage.this);
+                        TextView atribute2 = new TextView(ExtraServicePage.this);
+                        TextView atribute3 = new TextView(ExtraServicePage.this);
 
-                        TextView space = new TextView(com.example.turismoreal.extraServices.this);
+                        TextView space = new TextView(ExtraServicePage.this);
 
-                        TextView value1 = new TextView(com.example.turismoreal.extraServices.this);
-                        TextView value2 = new TextView(com.example.turismoreal.extraServices.this);
-                        TextView value3 = new TextView(com.example.turismoreal.extraServices.this);
+                        TextView value1 = new TextView(ExtraServicePage.this);
+                        TextView value2 = new TextView(ExtraServicePage.this);
+                        TextView value3 = new TextView(ExtraServicePage.this);
 
                         atribute1.setText("Localización");
                         atribute2.setText("Precio");
@@ -148,7 +148,7 @@ public class extraServices extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<List<ExtraService>> call, Throwable t) {
+                public void onFailure(Call<List<com.example.turismoreal.models.ExtraService>> call, Throwable t) {
 
                 }
             });
@@ -163,18 +163,18 @@ public class extraServices extends AppCompatActivity {
 
 
     public void addService (View view){
-        Intent i = new Intent(this, addExtraService.class);
+        Intent i = new Intent(this, AddExtraService.class);
         startActivity(i);
     }
 
     public void goBack(View view){
-        Intent i = new Intent(this, landingPage.class);
+        Intent i = new Intent(this, LandingPage.class);
         startActivity(i);
         finish();
     }
 
     public void departmentMenu(View view){
-        Intent i = new Intent(this, departmentPage.class);
+        Intent i = new Intent(this, DepartmentPage.class);
         startActivity(i);
         finish();
     }

@@ -1,4 +1,4 @@
-package com.example.turismoreal;
+package com.example.turismoreal.administrator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,9 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.example.turismoreal.Services.ExtraServices;
+import com.example.turismoreal.R;
 import com.example.turismoreal.models.OneResponse;
+import com.example.turismoreal.SplashScreen;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class addExtraService extends AppCompatActivity {
+public class AddExtraService extends AppCompatActivity {
 
 
     private Switch swicthButton;
@@ -69,21 +70,21 @@ public class addExtraService extends AppCompatActivity {
         Integer avalible = swicthButton.isChecked() ? 1 : 0;
         Integer serviceType = serviceTypeTour.isChecked() ? 1 : 2;
         if (serviceName.getText().toString().isEmpty()){
-            Toast.makeText(addExtraService.this, "El nombre del servicio no puede ser vacío", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddExtraService.this, "El nombre del servicio no puede ser vacío", Toast.LENGTH_SHORT).show();
         }else if (servicePrice.getText().toString().isEmpty()){
-            Toast.makeText(addExtraService.this, "Debe especificar un precio", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddExtraService.this, "Debe especificar un precio", Toast.LENGTH_SHORT).show();
         }else if (serviceLocation.getText().toString().isEmpty() && serviceType == 1){
-            Toast.makeText(addExtraService.this, "Debe especificar una localización para Tours", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddExtraService.this, "Debe especificar una localización para Tours", Toast.LENGTH_SHORT).show();
         }else {
             String name = serviceName.getText().toString();
             Integer price = Integer.parseInt(servicePrice.getText().toString());
             String location = serviceLocation.getText().toString();
             try {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(splashScreen.URL)
+                        .baseUrl(SplashScreen.URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                ExtraServices extraServices = retrofit.create(ExtraServices.class);
+                com.example.turismoreal.Services.ExtraServices extraServices = retrofit.create(com.example.turismoreal.Services.ExtraServices.class);
                 String jsonData = "{\"service_type_id\":"+serviceType+",\"name\":\""+name+"\",\"price\": "+price+",\"location\": \""+location+"\",\"available\":"+avalible+"}";
                 RequestBody requestBody = RequestBody.create(MediaType.parse("aplication/json"), jsonData);
                 extraServices.addExtraService(requestBody).enqueue(new Callback<ResponseBody>() {
@@ -95,12 +96,12 @@ public class addExtraService extends AppCompatActivity {
                             OneResponse post_response = g.fromJson(response.body().string(), OneResponse.class);
                             service_id = post_response.getResponse();
                             if (service_id != -1) {
-                                Toast.makeText(addExtraService.this, "Servicio Agregado correctamente", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(addExtraService.this, com.example.turismoreal.extraServices.class);
+                                Toast.makeText(AddExtraService.this, "Servicio Agregado correctamente", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(AddExtraService.this, ExtraServicePage.class);
                                 startActivity(i);
                                 finish();
                             }else{
-                                Toast.makeText(addExtraService.this, "Error al agregar el servicio extra", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddExtraService.this, "Error al agregar el servicio extra", Toast.LENGTH_SHORT).show();
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -130,7 +131,7 @@ public class addExtraService extends AppCompatActivity {
     }
 
     public void goBack(View view){
-        Intent i = new Intent(this, extraServices.class);
+        Intent i = new Intent(this, ExtraServicePage.class);
         startActivity(i);
         finish();
     }

@@ -7,22 +7,28 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:theme="@style/Theme.TurismoReal"
-    tools:context=".landingPage">
+    tools:context=".LandingPage">
 
     <FrameLayout
+        android:id="@+id/imageContainer"
         android:layout_width="110dp"
         android:layout_height="97dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtRol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/adminIcon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/admin" />
+
+        <ImageView
+            android:id="@+id/staffIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:srcCompat="@drawable/staff" />
 
     </FrameLayout>
 
@@ -48,72 +54,79 @@
         android:id="@+id/userName"
         android:layout_width="199dp"
         android:layout_height="38dp"
+        android:layout_marginTop="76dp"
         android:text="John Smith"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/layoutLandingPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.244" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnReportes"
+        android:id="@+id/btnReports"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="300dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:text="@string/analytics"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRol" />
 
     <Button
-        android:id="@+id/btnFuncionarios"
+        android:id="@+id/btnCheckIn"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
+        android:layout_weight="1"
+        android:onClick="checkInMenu"
+        android:text="Realizar Check In"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRol" />
+
+    <Button
+        android:id="@+id/btnStaff"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
         android:layout_weight="1"
         android:text="@string/employees"
-        app:layout_constraintBottom_toTopOf="@+id/btnClientes"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReportes" />
+        app:layout_constraintTop_toBottomOf="@+id/btnReports" />
 
     <Button
-        android:id="@+id/btnClientes"
+        android:id="@+id/btnCheckOut"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
+        android:layout_weight="1"
+        android:onClick="checkOutMenu"
+        android:text="Realizar Check Out"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReports" />
+
+    <Button
+        android:id="@+id/btnCustomers"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:text="@string/client"
-        app:layout_constraintBottom_toBottomOf="@+id/layoutLandingPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReportes" />
+        app:layout_constraintTop_toBottomOf="@+id/btnStaff" />
 
     <LinearLayout
-        android:id="@+id/layoutLandingPage"
-        android:layout_width="344dp"
-        android:layout_height="283dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.713">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="32dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/administratorsMenus"
         android:layout_width="0dp"
         android:layout_height="68dp"
         android:background="@color/black"
@@ -121,9 +134,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutLandingPage"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -213,13 +224,12 @@
         android:id="@+id/txtRol"
         android:layout_width="300dp"
         android:layout_height="20dp"
+        android:layout_marginTop="20dp"
         android:text="Administrador"
         android:textAlignment="center"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/layoutLandingPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

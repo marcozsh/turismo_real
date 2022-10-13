@@ -1,4 +1,4 @@
-package com.example.turismoreal.Services;
+package com.example.turismoreal.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

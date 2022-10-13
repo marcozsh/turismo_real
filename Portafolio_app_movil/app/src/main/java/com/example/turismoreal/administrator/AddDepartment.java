@@ -1,4 +1,4 @@
-package com.example.turismoreal;
+package com.example.turismoreal.administrator;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +17,12 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.turismoreal.R;
 import com.example.turismoreal.Services.CommuneService;
 import com.example.turismoreal.Services.DepartmentService;
 import com.example.turismoreal.models.Commune;
 import com.example.turismoreal.models.OneResponse;
+import com.example.turismoreal.SplashScreen;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -37,7 +39,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class addDepartment extends AppCompatActivity {
+public class AddDepartment extends AppCompatActivity {
 
     private Switch switchButton;
     private Spinner communeSpinner;
@@ -76,7 +78,7 @@ public class addDepartment extends AppCompatActivity {
         base64String = findViewById(R.id.base64Image);
         departmentImage = (ImageView) findViewById(R.id.departmentImage);
 
-        String [] departmentType = {"Selecciona un tipo de departamento","LOFT", "STUDIO", "BASIC", "FAMILIAR", "PENTHOUSE"};
+        String [] departmentType = {"Selecciona un tipo de departamento","Loft", "Estudio", "Pareja", "Familiar", "Penthouse"};
 
         ArrayAdapter<String> departmentTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, departmentType);
 
@@ -84,7 +86,7 @@ public class addDepartment extends AppCompatActivity {
 
         try{
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(splashScreen.URL)
+                    .baseUrl(SplashScreen.URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
@@ -94,7 +96,7 @@ public class addDepartment extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<Commune>> call, Response<List<Commune>> response) {
                     if (!response.isSuccessful()){
-                        Toast.makeText(addDepartment.this, response.code(), Toast.LENGTH_LONG);
+                        Toast.makeText(AddDepartment.this, response.code(), Toast.LENGTH_LONG);
                         return;
                     }
                     List<Commune>communes = response.body();
@@ -103,7 +105,7 @@ public class addDepartment extends AppCompatActivity {
                     for (Commune i : communes){
                             options.add(i.getCommune());
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(addDepartment.this, android.R.layout.simple_spinner_item, options);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddDepartment.this, android.R.layout.simple_spinner_item, options);
                     communeSpinner.setAdapter(adapter);
                 }
 
@@ -147,19 +149,19 @@ public class addDepartment extends AppCompatActivity {
         String departmentCommune = communeSpinner.getSelectedItem().toString();
         String departmentType = departmentTypeSpinner.getSelectedItem().toString();
         if (address.getText().toString().isEmpty()){
-            Toast.makeText(addDepartment.this,"Debe agregar la dirección del departamento", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddDepartment.this,"Debe agregar la dirección del departamento", Toast.LENGTH_SHORT).show();
         }else if(qtyRoom.getText().toString().isEmpty()){
-            Toast.makeText(addDepartment.this,"Debe indicar la cantidad de piezas", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddDepartment.this,"Debe indicar la cantidad de piezas", Toast.LENGTH_SHORT).show();
         }else if(price.getText().toString().isEmpty()){
-            Toast.makeText(addDepartment.this,"Debe indicar el precio del departamento", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddDepartment.this,"Debe indicar el precio del departamento", Toast.LENGTH_SHORT).show();
         }else if (departmentCommune.equals("Seccionar una comuna")){
-            Toast.makeText(addDepartment.this,"Debe seleccionar una comuna", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddDepartment.this,"Debe seleccionar una comuna", Toast.LENGTH_SHORT).show();
         }else if(departmentType.equals("Selecciona un tipo de departamento")){
-            Toast.makeText(addDepartment.this,"Debe seleccionar un tipo de departamento", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddDepartment.this,"Debe seleccionar un tipo de departamento", Toast.LENGTH_SHORT).show();
         }else if(shortDescription.getText().toString().isEmpty()){
-            Toast.makeText(addDepartment.this,"Debe indicar una descripción corta", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddDepartment.this,"Debe indicar una descripción corta", Toast.LENGTH_SHORT).show();
         }else if (longDescription.getText().toString().isEmpty()){
-            Toast.makeText(addDepartment.this,"Debe indicar una descripcin larga", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddDepartment.this,"Debe indicar una descripcin larga", Toast.LENGTH_SHORT).show();
         }else{
             String departmetAddress = address.getText().toString();
             Integer departmentQtyRoom = Integer.parseInt(qtyRoom.getText().toString());
@@ -181,7 +183,7 @@ public class addDepartment extends AppCompatActivity {
                 }
                 String base64Image = base64String.getText().toString();
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(splashScreen.URL)
+                        .baseUrl(SplashScreen.URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 DepartmentService departmentService = retrofit.create(DepartmentService.class);
@@ -191,7 +193,7 @@ public class addDepartment extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (!response.isSuccessful()){
-                            Toast.makeText(addDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         try {
@@ -199,12 +201,12 @@ public class addDepartment extends AppCompatActivity {
                             OneResponse post_response = g.fromJson(response.body().string(), OneResponse.class);
                             department_id = post_response.getResponse();
                             if (department_id != 0) {
-                                Toast.makeText(addDepartment.this, "Departamento Agregado correctamente", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(addDepartment.this, departmentPage.class);
+                                Toast.makeText(AddDepartment.this, "Departamento Agregado correctamente", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(AddDepartment.this, DepartmentPage.class);
                                 startActivity(i);
                                 finish();
                             }else{
-                                Toast.makeText(addDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddDepartment.this, "Error al agregar el departamento", Toast.LENGTH_SHORT).show();
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -222,7 +224,7 @@ public class addDepartment extends AppCompatActivity {
     }
 
     public void goBack(View view){
-        Intent i = new Intent(this, departmentPage.class);
+        Intent i = new Intent(this, DepartmentPage.class);
         startActivity(i);
         finish();
     }

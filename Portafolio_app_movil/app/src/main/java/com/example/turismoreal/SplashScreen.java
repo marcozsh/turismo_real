@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 
 import com.example.turismoreal.Services.LoginService;
-import com.example.turismoreal.Services.SendLogin;
+import com.example.turismoreal.models.SendLogin;
 import com.google.gson.Gson;
 
 
@@ -30,12 +30,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressLint("CustomSplashScreen")
-public class splashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
     private String session_id;
 
 
-    public static final String URL = "http://192.168.137.71:8000/api_mobile/";
+    public static final String URL = "http://192.168.0.6:8000/api_mobile/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class splashScreen extends AppCompatActivity {
                 Integer id = preferences.getInt("userId", 0);
 
                 if (id == 0){
-                    Intent i = new Intent(this, login.class);
+                    Intent i = new Intent(this, Login.class);
                     startActivity(i);
                     finish();
                 }
@@ -78,11 +78,11 @@ public class splashScreen extends AppCompatActivity {
                                 SendLogin sendLogin = g.fromJson(response.body().string(), SendLogin.class);
                                 session_id = sendLogin.getSession();
                                 if (session_id.equals("NO SESSION") || session_id.equals("UNREGISTER")){
-                                    Intent i = new Intent(splashScreen.this, login.class);
+                                    Intent i = new Intent(SplashScreen.this, Login.class);
                                     startActivity(i);
                                 }else {
-                                    Toast.makeText(splashScreen.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(splashScreen.this, landingPage.class);
+                                    Toast.makeText(SplashScreen.this, "Bienvenido!", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(SplashScreen.this, LandingPage.class);
                                     startActivity(i);
                                 }
                                 finish();

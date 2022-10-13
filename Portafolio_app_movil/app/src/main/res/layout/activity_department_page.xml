@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".departmentPage">
+    tools:context=".administrator.DepartmentPage">
 
     <Button
         android:id="@+id/btnReportes4"
@@ -62,7 +62,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/administratorsMenus"
         android:layout_width="0dp"
         android:layout_height="68dp"
         android:background="@color/black"

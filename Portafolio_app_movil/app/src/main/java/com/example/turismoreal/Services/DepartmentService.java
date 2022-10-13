@@ -19,6 +19,18 @@ public interface DepartmentService {
     @POST("department_inventory/")
     Call<ResponseBody> getDepartmentInventory(@Body RequestBody requestBody);
 
+    @POST("department/available/")
+    Call<ResponseBody> markDepartmentAvailable(@Body RequestBody requestBody);
+
+    @POST("department_inventory/add/")
+    Call<ResponseBody> addDepartmentInventory(@Body RequestBody requestBody);
+
+    @POST("department/add/maintenance/")
+    Call<ResponseBody> addMaintenance(@Body RequestBody requestBody);
+
+    @POST("not_available_dates/")
+    Call<ResponseBody>getNotAvailableDates(@Body RequestBody requestBody);
+
     @POST("department/")
     Call<ResponseBody> getDepartmentByCommune(@Body RequestBody requestBody);
 

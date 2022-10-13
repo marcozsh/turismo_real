@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ic_iconoprincipal_background"
-    tools:context=".login">
+    tools:context=".Login">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -38,7 +38,7 @@
         tools:text="@string/welcome" />
 
     <Button
-        android:id="@+id/btnReportes"
+        android:id="@+id/btnReports"
         android:layout_width="267dp"
         android:layout_height="51dp"
         android:layout_marginTop="200dp"
@@ -113,9 +113,9 @@
         android:background="@drawable/loading"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/btnReportes"
-        app:layout_constraintStart_toStartOf="@+id/btnReportes"
-        app:layout_constraintTop_toBottomOf="@+id/btnReportes"
+        app:layout_constraintEnd_toEndOf="@+id/btnReports"
+        app:layout_constraintStart_toStartOf="@+id/btnReports"
+        app:layout_constraintTop_toBottomOf="@+id/btnReports"
         app:layout_constraintVertical_bias="0.509" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

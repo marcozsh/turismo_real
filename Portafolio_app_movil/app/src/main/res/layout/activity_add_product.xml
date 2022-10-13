@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".administrator.AddProduct">
+
+    <Button
+        android:id="@+id/btnAddProduct"
+        android:layout_width="296dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:layout_weight="1"
+        android:onClick="addProduct"
+        android:text="@string/add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productTypeSpinner" />
+
+    <Spinner
+        android:id="@+id/productTypeSpinner"
+        android:layout_width="316dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/shape_input"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productBrand"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/productoTexto4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tipo de producto"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/productTypeSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="39dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+        app:layout_constraintBottom_toBottomOf="@+id/productTypeSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/productTypeSpinner"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/productTypeSpinner"
+        app:layout_constraintTop_toTopOf="@+id/productTypeSpinner"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/productName"
+        android:layout_width="316dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/shape_input"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryGoBack2"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/productBrand"
+        android:layout_width="316dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/shape_input"
+        android:ems="10"
+        android:hint="Marca"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productName"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre *"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/productName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marca *"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/productBrand"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/inventoryGoBack2"
+        android:layout_width="212dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
+        android:onClick="goBack"
+        android:text="Agregar Productos"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>
