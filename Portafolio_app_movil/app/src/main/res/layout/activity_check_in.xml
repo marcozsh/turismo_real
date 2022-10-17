@@ -12,26 +12,15 @@
         android:id="@+id/btnReports3"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:onClick="goCheckInPage"
         android:text="Validar con N° de Folio"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logout4" />
-
-    <Button
-        android:id="@+id/btnReports4"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="72dp"
-        android:layout_weight="1"
-        android:text="Validar con Código QR"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReports3" />
 
     <TextView
         android:id="@+id/logout4"
@@ -50,4 +39,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.026"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <ScrollView
+        android:id="@+id/reservationScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReports3"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/reservationContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

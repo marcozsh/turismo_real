@@ -222,7 +222,6 @@ public class DepartmentPage extends AppCompatActivity {
                         .baseUrl(SplashScreen.URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-
                 DepartmentService departmentService = retrofit.create(DepartmentService.class);
                 Call<List<Department>> allDepartment = departmentService.getDepartment();
                 allDepartment.enqueue(new Callback<List<Department>>() {

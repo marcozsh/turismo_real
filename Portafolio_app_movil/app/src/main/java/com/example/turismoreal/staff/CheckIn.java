@@ -3,7 +3,9 @@ package com.example.turismoreal.staff;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,6 +31,7 @@ import com.example.turismoreal.SplashScreen;
 import com.example.turismoreal.administrator.DepartmentPage;
 import com.example.turismoreal.models.Department;
 import com.example.turismoreal.models.ExtraService;
+import com.example.turismoreal.models.OneResponse;
 import com.example.turismoreal.models.Reservation;
 import com.google.gson.Gson;
 
@@ -47,7 +51,7 @@ public class CheckIn extends AppCompatActivity {
     private TextView reservationQtyRooms, qtyCustumers,
             reservationCheckIn, reservationCheckOut, reservationTotal,
             reservationTitle, reservationStatus, textPayment
-            ,rDepartmentPrice, extraServicesTotal, reservationPaid;
+            ,rDepartmentPrice, extraServicesTotal, reservationPaid,idReservation, btnReservation;
     private ImageView departmentImageReservation;
     private EditText reservationId;
     private Button btnRegisterCheckIn, btnAddExtraService;
@@ -56,14 +60,17 @@ public class CheckIn extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
-    //sumar servicios extras
-
     private Integer totalAmount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_TurismoReal);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in2);
+
+        //avoid keyboard open
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
 
         reservationId = findViewById(R.id.reservationId);
         containerView = findViewById(R.id.containerView);
@@ -76,6 +83,8 @@ public class CheckIn extends AppCompatActivity {
         reservationStatus = findViewById(R.id.reservationStatus);
         rDepartmentPrice = findViewById(R.id.rDepartmentPrice);
         reservationPaid = findViewById(R.id.reservationPaid);
+        btnReservation = findViewById(R.id.btnReservation);
+        idReservation = findViewById(R.id.idReservation);
         extraServicesTotal = findViewById(R.id.extraServicesTotal);
         textPayment = findViewById(R.id.textPayment);
         departmentImageReservation = findViewById(R.id.departmentImageReservation);
@@ -83,6 +92,48 @@ public class CheckIn extends AppCompatActivity {
         btnRegisterCheckIn = findViewById(R.id.btnRegisterCheckIn);
         btnAddExtraService = findViewById(R.id.btnAddExtraService);
         containerView.setVisibility(View.GONE);
+
+        SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Integer id = preferences.getInt("reservationId", 0);
+        if (id > 0 ){
+            reservationId.setText(Integer.toString(id));
+            btnReservation.performClick();
+            preferences.edit().clear().apply();
+        }
+
+    }
+
+    public void checkIn(View view){
+        btnRegisterCheckIn.setVisibility(View.GONE);
+        try{
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(SplashScreen.URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            ReservationService reservationService = retrofit.create(ReservationService.class);
+            String jsonData = "{\"reservation_id\":"+Integer.parseInt(idReservation.getText().toString())+", \"action\": 1}";
+            RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
+            reservationService.markReservation(requestBody).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        OneResponse result = new Gson().fromJson(response.body().string(), OneResponse.class);
+                        if (result.getResponse() > 0 ){
+                            Toast.makeText(CheckIn.this, "Check In realizado correctamente", Toast.LENGTH_SHORT).show();
+                            btnReservation.performClick();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {}
+            });
+
+        }catch (Exception e){
+           e.printStackTrace();
+        }
     }
 
     public void searchReservation(View view){
@@ -110,6 +161,7 @@ public class CheckIn extends AppCompatActivity {
                             Reservation[] reservation = new Gson().fromJson(response.body().string(), Reservation[].class);
                             if (reservation.length != 0){
                                 for (Reservation r : reservation){
+                                    idReservation.setText(Integer.toString(r.getId()));
                                     Department[] department = r.getDepartment().toArray(new Department[0]);
                                     for (Department d : department){
                                         byte [] bytes = Base64.decode(d.getDepartmentImage(), Base64.NO_WRAP);
@@ -219,7 +271,7 @@ public class CheckIn extends AppCompatActivity {
                                     }
                                     extraServicesTotal.setText("$ " + extraServiceTotal);
                                     reservationPaid.setText("$ " + r.getReservationAmount());
-                                    reservationTotal.setText("$ " + r.getTotalAmount());
+                                    reservationTotal.setText("$ " + (r.getTotalAmount() -r.getReservationAmount()));
                                 }
                             }else{
                                 containerView.setVisibility(View.GONE);
@@ -246,6 +298,11 @@ public class CheckIn extends AppCompatActivity {
 
     }
 
+    public void checkInMenu(View view){
+        Intent i = new Intent(this, CheckInMenu.class);
+        startActivity(i);
+        finish();
+    }
 
     public void goBack(View view){
         Intent i = new Intent(this, LandingPage.class);
