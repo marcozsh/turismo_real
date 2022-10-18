@@ -8,16 +8,19 @@ public class Reservation {
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private Integer id;
     @SerializedName("total_amount")
     @Expose
-    private int totalAmount;
+    private Integer totalAmount;
     @SerializedName("reservation_amount")
     @Expose
-    private int reservationAmount;
+    private Integer reservationAmount;
     @SerializedName("qty_customers")
     @Expose
-    private int qtyCustomers;
+    private Integer qtyCustomers;
+    @SerializedName("reservation_date")
+    @Expose
+    private String reservationDate;
     @SerializedName("check_in")
     @Expose
     private String checkIn;
@@ -26,7 +29,7 @@ public class Reservation {
     private String checkOut;
     @SerializedName("status")
     @Expose
-    private int status;
+    private Integer status;
     @SerializedName("first_name")
     @Expose
     private String firstName;
@@ -36,9 +39,6 @@ public class Reservation {
     @SerializedName("email")
     @Expose
     private String email;
-
-
-
     @SerializedName("department")
     @Expose
     private List<Department> department = null;
@@ -46,36 +46,44 @@ public class Reservation {
     @Expose
     private List<ExtraService> serviceExtra = null;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getTotalAmount() {
+    public Integer getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(int totalAmount) {
+    public void setTotalAmount(Integer totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public int getReservationAmount() {
+    public Integer getReservationAmount() {
         return reservationAmount;
     }
 
-    public void setReservationAmount(int reservationAmount) {
+    public void setReservationAmount(Integer reservationAmount) {
         this.reservationAmount = reservationAmount;
     }
 
-    public int getQtyCustomers() {
+    public Integer getQtyCustomers() {
         return qtyCustomers;
     }
 
-    public void setQtyCustomers(int qtyCustomers) {
+    public void setQtyCustomers(Integer qtyCustomers) {
         this.qtyCustomers = qtyCustomers;
+    }
+
+    public String getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(String reservationDate) {
+        this.reservationDate = reservationDate;
     }
 
     public String getCheckIn() {
@@ -94,11 +102,11 @@ public class Reservation {
         this.checkOut = checkOut;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

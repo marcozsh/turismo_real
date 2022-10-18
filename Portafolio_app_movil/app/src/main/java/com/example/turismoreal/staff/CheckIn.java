@@ -158,6 +158,7 @@ public class CheckIn extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try {
                             dialog.dismiss();
+                            System.out.println(response.body().string());
                             Reservation[] reservation = new Gson().fromJson(response.body().string(), Reservation[].class);
                             if (reservation.length != 0){
                                 for (Reservation r : reservation){
