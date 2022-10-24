@@ -43,7 +43,6 @@ public class CheckInMenu extends AppCompatActivity {
         setTheme(R.style.Theme_TurismoReal);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
-
         reservationContainer = findViewById(R.id.reservationContainer);
         reservationList();
     }
@@ -67,7 +66,6 @@ public class CheckInMenu extends AppCompatActivity {
         allReservations.enqueue(new Callback<List<Reservation>>() {
             @Override
             public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
-                dialog.dismiss();
                 List<Reservation> allReservations = response.body();
                 for (Reservation r : allReservations){
                     TableLayout titleTableLauout = new TableLayout(CheckInMenu.this);
@@ -176,23 +174,23 @@ public class CheckInMenu extends AppCompatActivity {
                             SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putInt("reservationId", r.getId());
+                            editor.putString("email", r.getEmail());
                             editor.commit();
                             Intent i = new Intent(CheckInMenu.this, CheckIn.class);
                             startActivity(i);
                         }
                     });
                 }
+                dialog.dismiss();
             }
-
             @Override
             public void onFailure(Call<List<Reservation>> call, Throwable t) {
-
             }
         });
-
     }
-
     public void goCheckInPage(View view){
+        SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
+        preferences.edit().clear().apply();
         Intent i = new Intent(this, CheckIn.class);
         startActivity(i);
     }

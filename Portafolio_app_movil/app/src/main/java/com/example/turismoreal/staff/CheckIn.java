@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.Gravity;
@@ -71,7 +72,6 @@ public class CheckIn extends AppCompatActivity {
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-
         reservationId = findViewById(R.id.reservationId);
         containerView = findViewById(R.id.containerView);
         reservationQtyRooms = findViewById(R.id.reservationQtyRooms);
@@ -99,41 +99,27 @@ public class CheckIn extends AppCompatActivity {
         if (id > 0 ){
             reservationId.setText(Integer.toString(id));
             btnReservation.performClick();
-            preferences.edit().clear().apply();
         }
 
     }
 
     public void checkIn(View view){
-        btnRegisterCheckIn.setVisibility(View.GONE);
-        try{
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(SplashScreen.URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            ReservationService reservationService = retrofit.create(ReservationService.class);
-            String jsonData = "{\"reservation_id\":"+Integer.parseInt(idReservation.getText().toString())+", \"action\": 1}";
-            RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
-            reservationService.markReservation(requestBody).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        OneResponse result = new Gson().fromJson(response.body().string(), OneResponse.class);
-                        if (result.getResponse() > 0 ){
-                            Toast.makeText(CheckIn.this, "Check In realizado correctamente", Toast.LENGTH_SHORT).show();
-                            btnReservation.performClick();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {}
-            });
-
-        }catch (Exception e){
-           e.printStackTrace();
+        SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Integer idReservation = preferences.getInt("reservationId", 0);
+        String mailCustomer = preferences.getString("email", "none");
+        if(idReservation != 0 && !mailCustomer.equals("none")){
+            String subject = "Confirmación Check In(RESERVA \""+idReservation+"\")";
+            String body = "http://marcozsh/turismo_real/?reservation_id="+idReservation;
+            Intent selectionIntent = new Intent(Intent.ACTION_SENDTO);
+            selectionIntent.setData(Uri.parse("mailto:"+mailCustomer+"?subject="+Uri.encode(subject)+"&body="+Uri.encode(body)));
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setSelector(selectionIntent);
+            startActivity(Intent.createChooser(i, "Select An App"));
+        }else{
+            Toast.makeText(this, "A ocurrido un error, intentelo más tarde", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void searchReservation(View view){
@@ -158,7 +144,6 @@ public class CheckIn extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try {
                             dialog.dismiss();
-                            System.out.println(response.body().string());
                             Reservation[] reservation = new Gson().fromJson(response.body().string(), Reservation[].class);
                             if (reservation.length != 0){
                                 for (Reservation r : reservation){
@@ -305,7 +290,14 @@ public class CheckIn extends AppCompatActivity {
         finish();
     }
 
+    public void addExtraService(View view){
+        Intent i = new Intent(this, ReservationExtraServices.class);
+        startActivity(i);
+    }
+
     public void goBack(View view){
+        SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
+        preferences.edit().clear().apply();
         Intent i = new Intent(this, LandingPage.class);
         startActivity(i);
         finish();
