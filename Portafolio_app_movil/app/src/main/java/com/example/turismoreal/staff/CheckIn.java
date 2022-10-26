@@ -182,6 +182,9 @@ public class CheckIn extends AppCompatActivity {
                                     ExtraService[] extraServices = r.getServiceExtra().toArray(new ExtraService[0]);
                                     Integer extraServiceTotal = 0;
                                     for (ExtraService services: extraServices){
+                                        if (services.getId() == 0){
+                                            continue;
+                                        }
                                         //title
                                         TableLayout titleTableLauout = new TableLayout(CheckIn.this);
                                         TableRow titleBox = new TableRow(CheckIn.this);

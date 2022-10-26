@@ -18,4 +18,7 @@ public interface ExtraServices {
 
     @POST("extra_services/add/")
     Call<ResponseBody> addExtraService(@Body RequestBody requestBody);
+
+    @POST ("extra_service/id/")
+    Call<ResponseBody> getExtraServiceById(@Body RequestBody requestBody);
 }

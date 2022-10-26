@@ -8,16 +8,15 @@
     tools:context=".staff.ReservationExtraServices">
 
     <Spinner
-        android:id="@+id/productTypeSpinner2"
+        android:id="@+id/extraServiceSpinner"
         android:layout_width="316dp"
         android:layout_height="36dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/shape_input"
         android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logout5"
-        app:layout_constraintVertical_bias="0.549"
         tools:ignore="TouchTargetSizeCheck" />
 
     <ImageView
@@ -25,43 +24,47 @@
         android:layout_width="39dp"
         android:layout_height="36dp"
         android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
-        app:layout_constraintBottom_toBottomOf="@+id/productTypeSpinner2"
-        app:layout_constraintEnd_toEndOf="@+id/productTypeSpinner2"
+        app:layout_constraintBottom_toBottomOf="@+id/extraServiceSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/extraServiceSpinner"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/productTypeSpinner2"
-        app:layout_constraintTop_toTopOf="@+id/productTypeSpinner2"
+        app:layout_constraintStart_toStartOf="@+id/extraServiceSpinner"
+        app:layout_constraintTop_toTopOf="@+id/extraServiceSpinner"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnReports2"
         android:layout_width="320dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="24dp"
         android:layout_weight="1"
+        android:onClick="addServicesToReservation"
         android:text="Agregar Servicio Extra"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/divider8"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="40dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="169dp" />
+        app:layout_constraintTop_toBottomOf="@+id/extraServiceSpinner" />
 
     <View
         android:id="@+id/divider10"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginBottom="30dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/btnReports2"
+        app:layout_constraintBottom_toTopOf="@+id/textView29"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ScrollView
@@ -106,8 +109,31 @@
         android:layout_height="wrap_content"
         android:text="Seleccionar servicio extra"
         android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/productTypeSpinner2"
-        app:layout_constraintEnd_toEndOf="@+id/productTypeSpinner2"
+        app:layout_constraintBottom_toTopOf="@+id/extraServiceSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/extraServiceSpinner"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/productTypeSpinner2" />
+        app:layout_constraintStart_toStartOf="@+id/extraServiceSpinner" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="16dp"
+        android:text="Sub-Total +"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/btnReports2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/totalServices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Total"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/btnReports2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.742"
+        app:layout_constraintStart_toEndOf="@+id/textView29" />
 </androidx.constraintlayout.widget.ConstraintLayout>

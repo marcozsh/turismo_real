@@ -20,7 +20,9 @@ public interface ReservationService {
     @POST("reservation/id/")
     Call<ResponseBody> getReservation(@Body RequestBody requestBody);
 
-    @POST("reservation/status/")
-    Call<ResponseBody> markReservation(@Body RequestBody requestBody);
+    @POST("reservation/add_extra_service/")
+    Call<ResponseBody> addExtraServiceToReservation(@Body RequestBody requestBody);
 
+    @POST("reservation/extra_service/")
+    Call<ResponseBody> getReservationExtraServiceId(@Body RequestBody requestBody);
 }
