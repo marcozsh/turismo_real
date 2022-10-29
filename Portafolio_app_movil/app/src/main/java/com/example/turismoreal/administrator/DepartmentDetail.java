@@ -146,10 +146,6 @@ public class DepartmentDetail extends AppCompatActivity {
         departmentService.getDepartmentInventory(requestBody).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(!response.isSuccessful()){
-                    Toast.makeText(DepartmentDetail.this, response.code(),Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 try {
                     dialog.dismiss();
                     DepartmentInventory[] departmentInventory = new Gson().fromJson(response.body().string(), DepartmentInventory[].class);
@@ -266,6 +262,7 @@ public class DepartmentDetail extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+                Toast.makeText(DepartmentDetail.this, "Departamento sin inventario",Toast.LENGTH_SHORT).show();
             }
         });
 

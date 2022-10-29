@@ -17,6 +17,13 @@ public class Product {
     @SerializedName("product_type")
     @Expose
     private int productType;
+    @SerializedName("status")
+    @Expose
+    private String status;
+
+    @SerializedName("price")
+    @Expose
+    private int price;
 
     public int getId() {
         return id;
@@ -50,4 +57,15 @@ public class Product {
         this.productType = productType;
     }
 
+    public String getStatus() {return status;}
+
+    public void setStatus(String status) {this.status = status;}
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }

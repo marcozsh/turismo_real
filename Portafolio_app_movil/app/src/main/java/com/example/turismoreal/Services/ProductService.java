@@ -17,7 +17,7 @@ public interface ProductService {
     @GET("product_type/")
     Call<List<ProductType>> getProductType();
 
-    @GET("product")
+    @GET("product/")
     Call<List<Product>> getProducts();
 
     @POST("product/")
@@ -25,4 +25,10 @@ public interface ProductService {
 
     @POST("product_by_category/")
     Call<ResponseBody> getProductsByCategories(@Body RequestBody requestBody);
+
+    @POST("product/id/")
+    Call<ResponseBody> getProductsById(@Body RequestBody requestBody);
+
+    @POST("product/status/")
+    Call<ResponseBody> updateProductStatus(@Body RequestBody requestBody);
 }

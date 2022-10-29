@@ -33,7 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddProduct extends AppCompatActivity {
 
     Spinner productTypeSpinner;
-    EditText productName, productBrand;
+    EditText productName, productBrand, productPrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_TurismoReal);
@@ -43,6 +43,7 @@ public class AddProduct extends AppCompatActivity {
         productTypeSpinner = findViewById(R.id.productTypeSpinner);
         productName = findViewById(R.id.productName);
         productBrand = findViewById(R.id.productBrand);
+        productPrice = findViewById(R.id.productPrice);
 
         try {
             Retrofit retrofit = new Retrofit.Builder()
@@ -85,14 +86,16 @@ public class AddProduct extends AppCompatActivity {
             Toast.makeText(this, "Debe ingresar la marca del producto",Toast.LENGTH_SHORT).show();
         }else if(productTypeSpinner.equals("Seccionar un tipo de producto")){
             Toast.makeText(this, "Debe seleccionar un tipo de producto",Toast.LENGTH_SHORT).show();
-        }else{
+        }else if (productPrice.getText().toString().isEmpty()){
+            Toast.makeText(this, "Debe ingresar el precio del producto",Toast.LENGTH_SHORT).show();
+        } else{
             try {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(SplashScreen.URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 ProductService productService = retrofit.create(ProductService.class);
-                String jsonData = "{\"name\":\""+productName.getText().toString()+"\", \"brand\":\""+productBrand.getText().toString()+"\",\"product_type\":\""+productTypeSpinner.getSelectedItem().toString()+"\"}";
+                String jsonData = "{\"name\":\""+productName.getText().toString()+"\", \"brand\":\""+productBrand.getText().toString()+"\",\"product_type\":\""+productTypeSpinner.getSelectedItem().toString()+"\", \"price\":"+Integer.parseInt(productPrice.getText().toString())+"}";
                 RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
                 productService.addProduct(requestBody).enqueue(new Callback<ResponseBody>() {
                     @Override

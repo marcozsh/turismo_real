@@ -19,9 +19,6 @@ import com.example.turismoreal.LandingPage;
 import com.example.turismoreal.R;
 import com.example.turismoreal.Services.ReservationService;
 import com.example.turismoreal.SplashScreen;
-import com.example.turismoreal.administrator.DepartmentPage;
-import com.example.turismoreal.administrator.ExtraServicePage;
-import com.example.turismoreal.models.ExtraService;
 import com.example.turismoreal.models.Reservation;
 
 import java.util.List;

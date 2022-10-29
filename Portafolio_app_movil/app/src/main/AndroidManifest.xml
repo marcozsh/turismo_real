@@ -18,6 +18,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".staff.InventoryList"
+            android:exported="false" />
+        <activity
+            android:name=".staff.CheckList"
+            android:exported="false" />
+        <activity
             android:name=".staff.ReservationExtraServices"
             android:exported="false" />
         <activity

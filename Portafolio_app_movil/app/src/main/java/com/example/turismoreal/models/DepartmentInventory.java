@@ -23,6 +23,15 @@ public class DepartmentInventory {
     @SerializedName("product_type")
     @Expose
     private String productType;
+    @SerializedName("product_id")
+    @Expose
+    private int product_id;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("price")
+    @Expose
+    private int price;
 
     public int getId() {
         return id;
@@ -72,4 +81,27 @@ public class DepartmentInventory {
         this.productType = productType;
     }
 
+    public int getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }

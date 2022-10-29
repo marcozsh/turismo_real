@@ -94,8 +94,9 @@ public class SplashScreen extends AppCompatActivity {
                         }
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            t.printStackTrace();
-                            System.out.println(t.getMessage());
+                            Toast.makeText(SplashScreen.this, "No se puede conectar con la base de datos", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(SplashScreen.this, Login.class);
+                            startActivity(i);
                         }
                     });
 

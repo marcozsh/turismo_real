@@ -119,9 +119,7 @@ public class CheckIn extends AppCompatActivity {
         }else{
             Toast.makeText(this, "A ocurrido un error, intentelo más tarde", Toast.LENGTH_SHORT).show();
         }
-
     }
-
     public void searchReservation(View view){
         if(!reservationId.getText().toString().isEmpty()){
             principalLayout.removeAllViews();

@@ -63,8 +63,8 @@ public class AddDepartmentInventory extends AppCompatActivity {
                     .build();
 
             ProductService productService = retrofit.create(ProductService.class);
-            Call<List<ProductType>> allCommunes = productService.getProductType();
-            allCommunes.enqueue(new Callback<List<ProductType>>() {
+            Call<List<ProductType>> productsTypes = productService.getProductType();
+            productsTypes.enqueue(new Callback<List<ProductType>>() {
                 @Override
                 public void onResponse(Call<List<ProductType>> call, Response<List<ProductType>> response) {
                     if (!response.isSuccessful()) {
