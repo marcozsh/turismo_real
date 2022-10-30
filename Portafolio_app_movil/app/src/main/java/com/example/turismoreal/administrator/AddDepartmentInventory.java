@@ -149,6 +149,12 @@ public class AddDepartmentInventory extends AppCompatActivity {
         });
     }
     public void addDepartmentInventory(View view){
+        dialogBuilder = new AlertDialog.Builder(AddDepartmentInventory.this);
+        dialogBuilder.setCancelable(false);
+        final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
+        dialogBuilder.setView(loading);
+        dialog = dialogBuilder.create();
+        dialog.show();
         if (productCategorySpinner.getSelectedItem().toString().equals("Seccionar una categoria")){
             Toast.makeText(this, "Debe seleccionar una categoría", Toast.LENGTH_LONG).show();
         }else if (productSpinner2.getSelectedItem() == null){
@@ -178,6 +184,7 @@ public class AddDepartmentInventory extends AppCompatActivity {
                         OneResponse inventoryResponse = new Gson().fromJson(response.body().string(), OneResponse.class);
                         int inventoryId = inventoryResponse.getResponse();
                         if(inventoryId != 0){
+                            dialog.dismiss();
                             Toast.makeText(AddDepartmentInventory.this, "Inventario agreagdo correctamente", Toast.LENGTH_LONG);
                             preferencesProduct.edit().clear().apply();
                             Intent i = new Intent(AddDepartmentInventory.this, DepartmentDetail.class);

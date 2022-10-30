@@ -1,5 +1,6 @@
 package com.example.turismoreal.administrator;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -34,6 +35,8 @@ public class AddProduct extends AppCompatActivity {
 
     Spinner productTypeSpinner;
     EditText productName, productBrand, productPrice;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_TurismoReal);
@@ -69,7 +72,6 @@ public class AddProduct extends AppCompatActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddProduct.this, android.R.layout.simple_spinner_item, options);
                     productTypeSpinner.setAdapter(adapter);
                 }
-
                 @Override
                 public void onFailure(Call<List<ProductType>> call, Throwable t) {
 
@@ -80,6 +82,12 @@ public class AddProduct extends AppCompatActivity {
         }
     }
     public void addProduct(View view){
+        dialogBuilder = new AlertDialog.Builder(AddProduct.this);
+        dialogBuilder.setCancelable(false);
+        final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
+        dialogBuilder.setView(loading);
+        dialog = dialogBuilder.create();
+        dialog.show();
         if (productName.getText().toString().isEmpty()){
             Toast.makeText(this, "Debe ingresar el nombre del producto",Toast.LENGTH_SHORT).show();
         }else if (productBrand.getText().toString().isEmpty()){
@@ -100,11 +108,8 @@ public class AddProduct extends AppCompatActivity {
                 productService.addProduct(requestBody).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(!response.isSuccessful()){
-                            Toast.makeText(AddProduct.this,response.code(),Toast.LENGTH_SHORT).show();
-                            return;
-                        }
                         try {
+                            dialog.dismiss();
                             Gson g = new Gson();
                             OneResponse postResponse = g.fromJson(response.body().string(), OneResponse.class);
                             int productId = postResponse.getResponse();
@@ -127,9 +132,7 @@ public class AddProduct extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
     }
-
     public void goBack(View view){
         Intent i = new Intent(this, AddDepartmentInventory.class);
         startActivity(i);
