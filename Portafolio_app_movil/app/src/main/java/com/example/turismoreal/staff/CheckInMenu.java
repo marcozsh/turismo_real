@@ -186,8 +186,8 @@ public class CheckInMenu extends AppCompatActivity {
         });
     }
     public void goCheckInPage(View view){
-        SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
-        preferences.edit().clear().apply();
+        //SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
+        //preferences.edit().clear().apply();
         Intent i = new Intent(this, CheckIn.class);
         startActivity(i);
     }

@@ -55,6 +55,7 @@ public class ReservationExtraServices extends AppCompatActivity {
 
     private Integer extraServiceTotal = 0;
     private ArrayList<Integer> idLists = new ArrayList<Integer>() ;
+    private ArrayList<Integer> idListsNews = new ArrayList<Integer>() ;
     private LinearLayout principalLayout;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
@@ -124,47 +125,59 @@ public class ReservationExtraServices extends AppCompatActivity {
     }
     public void addServicesToReservation (View view){
         SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
         Integer reservationId = preferences.getInt("reservationId", 0);
-        dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setCancelable(false);
-        final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
-        dialogBuilder.setView(loading);
-        dialog = dialogBuilder.create();
-        dialog.show();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(SplashScreen.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ReservationService reservationService = retrofit.create(ReservationService.class);
-        String jsonData = "{\"reservation_id\":" +reservationId + ", \"services\":"+idLists+"}";
-        RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
 
-        reservationService.addExtraServiceToReservation(requestBody).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                OneResponse post_response = null;
-                try {
-                    dialog.dismiss();
-                    post_response = new Gson().fromJson(response.body().string(), OneResponse.class);
-                    int reservationId = post_response.getResponse();
-                    if (reservationId != 0){
-                        Toast.makeText(ReservationExtraServices.this, "Servicios Extras agregados correctamente", Toast.LENGTH_SHORT).show();
-                        extraServiceSpinner.setSelection(0);
-                        principalLayout.removeAllViews();
-                        sumTotal(0);
-                    }else{
-                        Toast.makeText(ReservationExtraServices.this, "Hubo un error al momento de agregar los servicios extras", Toast.LENGTH_SHORT).show();
+        if (idListsNews.size() == 0){
+            Toast.makeText(ReservationExtraServices.this, "Debe seleccionar al menos un servicio extra", Toast.LENGTH_SHORT).show();
+        }else{
+            if(reservationId != 0){
+                dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setCancelable(false);
+                final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
+                dialogBuilder.setView(loading);
+                dialog = dialogBuilder.create();
+                dialog.show();
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(SplashScreen.URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                ReservationService reservationService = retrofit.create(ReservationService.class);
+                String jsonData = "{\"reservation_id\":" +reservationId + ", \"services\":"+idListsNews+"}";
+                RequestBody requestBody = RequestBody.create(MediaType.parse("aplicaton/json"), jsonData);
+
+                reservationService.addExtraServiceToReservation(requestBody).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        OneResponse post_response = null;
+                        try {
+                            dialog.dismiss();
+                            post_response = new Gson().fromJson(response.body().string(), OneResponse.class);
+                            int reservationId = post_response.getResponse();
+                            if (reservationId != 0){
+                                Toast.makeText(ReservationExtraServices.this, "Servicios Extras agregados correctamente", Toast.LENGTH_SHORT).show();
+                                extraServiceSpinner.setSelection(0);
+                                principalLayout.removeAllViews();
+                                sumTotal(0);
+                            }else{
+                                Toast.makeText(ReservationExtraServices.this, "Hubo un error al momento de agregar los servicios extras", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
+                    }
+                });
+            }else{
+                Toast.makeText(ReservationExtraServices.this, "Error al agregar el servicio extra", Toast.LENGTH_SHORT).show();
             }
-        });
+        }
+
+
 
     }
     public void listService(Integer serviceId){
@@ -188,6 +201,7 @@ public class ReservationExtraServices extends AppCompatActivity {
                     dialog.dismiss();
                     ExtraService[] extraServices = new Gson().fromJson(response.body().string(), ExtraService[].class);
                     for (ExtraService services: extraServices){
+                        idListsNews.add(services.getId());
                         //title
                         TableLayout titleTableLauout = new TableLayout(ReservationExtraServices.this);
                         TableRow titleBox = new TableRow(ReservationExtraServices.this);
@@ -274,7 +288,6 @@ public class ReservationExtraServices extends AppCompatActivity {
     public void sumTotal(Integer total){
         totalServices.setText("$ "+ total);
     }
-
 
 
     public void listAllServices(){

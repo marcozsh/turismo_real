@@ -61,6 +61,7 @@ public class CheckIn extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
+    private String mail;
     private Integer totalAmount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,12 @@ public class CheckIn extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         Integer idReservation = preferences.getInt("reservationId", 0);
         String mailCustomer = preferences.getString("email", "none");
+        if(idReservation == 0){
+            idReservation = Integer.parseInt(reservationId.getText().toString());
+        }
+        if (mailCustomer.equals("none")){
+            mailCustomer = mail;
+        }
         if(idReservation != 0 && !mailCustomer.equals("none")){
             String subject = "Confirmación Check In(RESERVA \""+idReservation+"\")";
             String body = "http://marcozsh/turismo_real/?reservation_id="+idReservation;
@@ -155,6 +162,7 @@ public class CheckIn extends AppCompatActivity {
                                         rDepartmentPrice.setText("$ " + d.getPrice());
                                     }
                                     reservationTitle.setText("Reserva "+ DepartmentPage.capitalize(r.getFirstName()) + " " + DepartmentPage.capitalize(r.getLastName()));
+                                    mail = r.getEmail();
                                     qtyCustumers.setText(Integer.toString(r.getQtyCustomers()));
                                     reservationCheckIn.setText(r.getCheckIn());
                                     reservationCheckOut.setText(r.getCheckOut());
@@ -292,6 +300,13 @@ public class CheckIn extends AppCompatActivity {
     }
 
     public void addExtraService(View view){
+        SharedPreferences preferences = getSharedPreferences("reservation_details", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        Integer reservationIdTemp = preferences.getInt("reservationId", 0);
+        if(reservationIdTemp == 0){
+            editor.putInt("reservationId", Integer.parseInt(reservationId.getText().toString()));
+            editor.commit();
+        }
         Intent i = new Intent(this, ReservationExtraServices.class);
         startActivity(i);
     }
