@@ -67,8 +67,8 @@ public class Login extends AppCompatActivity {
 
     public void login(View view){
 
-        String username = user.getText().toString();
-        String pass =password.getText().toString();
+        String username = user.getText().toString().trim();
+        String pass =password.getText().toString().trim();
         if (!username.isEmpty() && !pass.isEmpty()){
             gib.setVisibility(view.VISIBLE);
             try {

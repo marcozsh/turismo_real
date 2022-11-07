@@ -85,12 +85,9 @@ public class DepartmentDetail extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("department", Context.MODE_PRIVATE);
         Integer isNew = preferences.getInt("is_new", -1);
-
-
         if(isNew == 0){
             btnAvailable.setVisibility(View.INVISIBLE);
         }
-
         informationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -367,8 +364,7 @@ public class DepartmentDetail extends AppCompatActivity {
                         if(departmentId != 0){
                             Toast.makeText(DepartmentDetail.this, "Departamento marcado como disponible", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
-                            finish();
-                            startActivity(getIntent());
+                            status.setText("Disponible");
 
                         }else{
                             Toast.makeText(DepartmentDetail.this, "Error al marcar como dispoible", Toast.LENGTH_SHORT).show();
