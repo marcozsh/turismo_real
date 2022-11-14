@@ -53,9 +53,7 @@ public class SplashScreen extends AppCompatActivity {
             try{
                 SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-
                 Integer id = preferences.getInt("userId", 0);
-
                 if (id == 0){
                     Intent i = new Intent(this, Login.class);
                     startActivity(i);

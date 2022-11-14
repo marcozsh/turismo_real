@@ -3,7 +3,9 @@ package com.example.turismoreal.administrator;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -144,6 +146,22 @@ public class ExtraServicePage extends AppCompatActivity {
                         valueRow2.addView(value2);
                         valueRow3.addView(value3);
                         spaceRow.addView(space);
+
+                        principalTable.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                SharedPreferences preferences = getSharedPreferences("extra_services", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putInt("service_id", services.getId());
+                                editor.putString("service_name", services.getName());
+                                editor.putInt("service_price", services.getPrice());
+                                editor.putString("service_location", services.getLocation());
+                                editor.putBoolean("service_disponibility", services.isAvailable());
+                                editor.putInt("service_type", services.getServiceTypeId());
+                                editor.commit();
+                                editExtraService();
+                            }
+                        });
                     }
                 }
 
@@ -158,6 +176,11 @@ public class ExtraServicePage extends AppCompatActivity {
             System.out.println(e.getMessage());
         }
 
+
+    }
+
+
+    public void editExtraService(){
 
     }
 

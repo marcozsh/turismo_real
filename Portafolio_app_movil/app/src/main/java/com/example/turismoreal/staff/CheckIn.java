@@ -117,7 +117,7 @@ public class CheckIn extends AppCompatActivity {
         }
         if(idReservation != 0 && !mailCustomer.equals("none")){
             String subject = "Confirmación Check In(RESERVA \""+idReservation+"\")";
-            String body = "http://marcozsh/turismo_real/?reservation_id="+idReservation;
+            String body = "http://localhost/turismo_real/?reservation_id="+idReservation;
             Intent selectionIntent = new Intent(Intent.ACTION_SENDTO);
             selectionIntent.setData(Uri.parse("mailto:"+mailCustomer+"?subject="+Uri.encode(subject)+"&body="+Uri.encode(body)));
             Intent i = new Intent(Intent.ACTION_VIEW);

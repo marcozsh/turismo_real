@@ -13,77 +13,81 @@
         android:icon="@mipmap/ic_iconoprincipal"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_iconoprincipal_round"
+        android:screenOrientation="locked"
         android:supportsRtl="true"
         android:theme="@style/SplashScreen"
         android:usesCleartextTraffic="true"
-        android:screenOrientation="locked"
         tools:targetApi="31">
         <activity
+            android:name=".administrator.Customers"
+            android:exported="false"
+            android:screenOrientation="locked" />
+        <activity
             android:name=".staff.InventoryList"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".staff.CheckList"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".staff.ReservationExtraServices"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".staff.CheckOut"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".staff.CheckIn"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".staff.CheckOutMenu"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".staff.CheckInMenu"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".administrator.AddProduct"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".administrator.AddDepartmentInventory"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".administrator.MaintenanceRegister"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".administrator.DepartmentDetail"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".administrator.AddDepartment"
-            android:screenOrientation="locked"
             android:exported="false"
+            android:screenOrientation="locked"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".administrator.DepartmentPage"
-            android:screenOrientation="locked"
             android:exported="false"
+            android:screenOrientation="locked"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".administrator.AddExtraService"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".administrator.ExtraServicePage"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".SplashScreen"
-            android:screenOrientation="locked"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -92,12 +96,12 @@
         </activity>
         <activity
             android:name=".LandingPage"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
         <activity
             android:name=".Login"
-            android:screenOrientation="locked"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="locked" />
     </application>
 
 </manifest>

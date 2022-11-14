@@ -217,7 +217,7 @@ public class CheckList extends AppCompatActivity {
         String mailCustomer = preferences.getString("email", "none");
         if(idReservation != 0 && !mailCustomer.equals("none")){
             String subject = "Confirmación Check Out(RESERVA \""+idReservation+"\")";
-            String body = "http://marcozsh/turismo_real/check_out/?reservation_id="+idReservation;
+            String body = "http://localhost/turismo_real/check_out/?reservation_id="+idReservation;
             Intent selectionIntent = new Intent(Intent.ACTION_SENDTO);
             selectionIntent.setData(Uri.parse("mailto:"+mailCustomer+"?subject="+Uri.encode(subject)+"&body="+Uri.encode(body)));
             Intent i = new Intent(Intent.ACTION_VIEW);
