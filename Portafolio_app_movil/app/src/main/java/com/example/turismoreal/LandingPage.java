@@ -26,6 +26,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.example.turismoreal.Services.LoginService;
+import com.example.turismoreal.administrator.Customers;
 import com.example.turismoreal.administrator.DepartmentPage;
 import com.example.turismoreal.administrator.ExtraServicePage;
 import com.example.turismoreal.models.CustomError;
@@ -163,6 +164,11 @@ public class LandingPage extends AppCompatActivity {
 
     public void departmentMenu(View view){
         Intent i = new Intent(this, DepartmentPage.class);
+        startActivity(i);
+    }
+
+    public void customersPage(View view){
+        Intent i = new Intent(this, Customers.class);
         startActivity(i);
     }
 

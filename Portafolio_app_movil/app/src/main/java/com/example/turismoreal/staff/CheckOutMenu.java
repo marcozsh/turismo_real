@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -43,7 +42,7 @@ public class CheckOutMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out);
 
-        reservationContainer = findViewById(R.id.reservationContainer);
+        reservationContainer = findViewById(R.id.custumersContainer);
         reservationList();
     }
 

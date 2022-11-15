@@ -40,7 +40,7 @@ public class CheckInMenu extends AppCompatActivity {
         setTheme(R.style.Theme_TurismoReal);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
-        reservationContainer = findViewById(R.id.reservationContainer);
+        reservationContainer = findViewById(R.id.custumersContainer);
         reservationList();
     }
 
