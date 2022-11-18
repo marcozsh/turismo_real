@@ -90,7 +90,7 @@ public class MaintenanceRegister extends AppCompatActivity {
         Date dateStart = new SimpleDateFormat("dd/MM/yyyy").parse(start);
         Date dateFinish = new SimpleDateFormat("dd/MM/yyyy").parse(finish);
 
-        if(dateStart.after(dateFinish)){
+        if(dateStart.before(dateFinish)){
             Toast.makeText(this, "Fechas no validas", Toast.LENGTH_SHORT).show();
         }else{
             Retrofit retrofit = new Retrofit.Builder()

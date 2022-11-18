@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 import com.example.turismoreal.R;
 import com.example.turismoreal.LandingPage;
+import com.example.turismoreal.Services.ExtraServices;
 import com.example.turismoreal.SplashScreen;
+import com.example.turismoreal.models.ExtraService;
 
 import java.util.List;
 
@@ -39,6 +41,11 @@ public class ExtraServicePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extra_services);
         principalLayout = findViewById(R.id.principalLayout);
+        listExtraService();
+    }
+
+
+    public void listExtraService(){
         dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setCancelable(false);
         final View loading = getLayoutInflater().inflate(R.layout.loading_gif, null);
@@ -50,19 +57,17 @@ public class ExtraServicePage extends AppCompatActivity {
                     .baseUrl(SplashScreen.URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            com.example.turismoreal.Services.ExtraServices extraServices = retrofit.create(com.example.turismoreal.Services.ExtraServices.class);
-            Call<List<com.example.turismoreal.models.ExtraService>> AllServices = extraServices.getExtraServices();
-            AllServices.enqueue(new Callback<List<com.example.turismoreal.models.ExtraService>>() {
-
+            ExtraServices extraServices = retrofit.create(ExtraServices.class);
+            Call<List<ExtraService>> AllServices = extraServices.getExtraServices();
+            AllServices.enqueue(new Callback<List<ExtraService>>() {
                 @Override
-                public void onResponse(Call<List<com.example.turismoreal.models.ExtraService>> call, Response<List<com.example.turismoreal.models.ExtraService>> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(ExtraServicePage.this, response.code(), Toast.LENGTH_LONG);
-                        return;
-                    }
+                public void onResponse(Call<List<ExtraService>> call, Response<List<ExtraService>> response) {
                     dialog.dismiss();
-                    List<com.example.turismoreal.models.ExtraService> allServices = response.body();
-                    for (com.example.turismoreal.models.ExtraService services : allServices) {
+                    List<ExtraService> allServices = response.body();
+                    for (ExtraService services : allServices) {
+                        if (services.getId() == 0){
+                            continue;
+                        }
                         //title
                         TableLayout titleTableLauout = new TableLayout(ExtraServicePage.this);
                         TableRow titleBox = new TableRow(ExtraServicePage.this);
@@ -164,31 +169,34 @@ public class ExtraServicePage extends AppCompatActivity {
                         });
                     }
                 }
-
                 @Override
-                public void onFailure(Call<List<com.example.turismoreal.models.ExtraService>> call, Throwable t) {
-
+                public void onFailure(Call<List<ExtraService>> call, Throwable t) {
+                    dialog.dismiss();
+                    System.out.println(t.getMessage());
                 }
             });
+
+
         }catch (Exception e){
 
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             System.out.println(e.getMessage());
         }
-
-
     }
 
-
     public void editExtraService(){
-
+        Intent i = new Intent(this, AddExtraService.class);
+        startActivity(i);
     }
 
 
     public void addService (View view){
+        SharedPreferences preferences = getSharedPreferences("extra_services", Context.MODE_PRIVATE);
+        preferences.edit().clear().apply();
         Intent i = new Intent(this, AddExtraService.class);
         startActivity(i);
     }
+
 
     public void goBack(View view){
         Intent i = new Intent(this, LandingPage.class);

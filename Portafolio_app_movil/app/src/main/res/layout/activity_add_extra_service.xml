@@ -104,12 +104,27 @@
         app:layout_constraintStart_toStartOf="@+id/serviceName" />
 
     <Button
-        android:id="@+id/btnReportes2"
+        android:id="@+id/btnAgregar"
         android:layout_width="296dp"
         android:layout_height="50dp"
         android:layout_weight="1"
         android:text="@string/add"
         android:onClick="addService"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:layout_constraintVertical_bias="0.344" />
+
+    <Button
+        android:id="@+id/btnModificar"
+        android:layout_width="296dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:onClick="updateService"
+        android:text="Modificar"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.537"

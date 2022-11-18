@@ -35,7 +35,7 @@ public class SplashScreen extends AppCompatActivity {
     private String session_id;
 
 
-    public static final String URL = "http://192.168.137.34:8000/api_mobile/";
+    public static final String URL = "http://192.168.0.6:8000/api_mobile/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

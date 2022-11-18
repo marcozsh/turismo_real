@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.example.turismoreal.Services.LoginService;
-import com.example.turismoreal.administrator.Customers;
+import com.example.turismoreal.administrator.Users;
 import com.example.turismoreal.administrator.DepartmentPage;
 import com.example.turismoreal.administrator.ExtraServicePage;
 import com.example.turismoreal.models.CustomError;
@@ -61,6 +62,10 @@ public class LandingPage extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+
+        SharedPreferences userMenu = getSharedPreferences("user_type", Context.MODE_PRIVATE);
+        userMenu.edit().clear().apply();
+
 
         String rol = preferences.getString("userRol", "NO SESSION");
         String userName = preferences.getString("fullName", "NO SESSION");
@@ -167,13 +172,43 @@ public class LandingPage extends AppCompatActivity {
         startActivity(i);
     }
 
+
+    public void employeePage(View view){
+        SharedPreferences preferences = getSharedPreferences("user_type", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("user_type", 2);
+        editor.commit();
+        Intent i = new Intent(this, Users.class);
+        startActivity(i);
+    }
+
+
     public void customersPage(View view){
-        Intent i = new Intent(this, Customers.class);
+        SharedPreferences preferences = getSharedPreferences("user_type", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("user_type", 1);
+        editor.commit();
+        Intent i = new Intent(this, Users.class);
         startActivity(i);
     }
 
     public void extraServicesMenu(View view){
         Intent i = new Intent(this, ExtraServicePage.class);
         startActivity(i);
+    }
+
+    public void profileMenu(View view){
+        Intent i = new Intent(this, Profile.class);
+        startActivity(i);
+    }
+
+    public void reportingPage(View view){
+        String subject = "Resumen de reportes Turismo Real";
+        String body = "http://localhost:3000/reporting";
+        Intent selectionIntent = new Intent(Intent.ACTION_SENDTO);
+        selectionIntent.setData(Uri.parse("mailto:marc.penar@duocuc.cl?subject="+Uri.encode(subject)+"&body="+Uri.encode(body)));
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setSelector(selectionIntent);
+        startActivity(Intent.createChooser(i, "Select An App"));
     }
 }

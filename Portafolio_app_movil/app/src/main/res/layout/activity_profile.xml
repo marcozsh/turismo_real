@@ -2,43 +2,74 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/landing_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:theme="@style/Theme.TurismoReal"
-    tools:context=".LandingPage">
-
-    <FrameLayout
-        android:id="@+id/imageContainer"
-        android:layout_width="110dp"
-        android:layout_height="97dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName">
-
-        <ImageView
-            android:id="@+id/adminIcon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/admin" />
-
-        <ImageView
-            android:id="@+id/staffIcon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:srcCompat="@drawable/staff" />
-
-    </FrameLayout>
+    android:background="#FFFFFF"
+    tools:context=".Profile">
 
     <TextView
-        android:id="@+id/logout"
+        android:id="@+id/userName2"
+        android:layout_width="199dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="136dp"
+        android:text="John Smith"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rut"
+        android:layout_width="127dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="40dp"
+        android:text="00000000-0"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName2" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="271dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="48dp"
+        android:text="test@test.cl"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rut" />
+
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="271dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="56dp"
+        android:text="Administrador"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <TextView
+        android:id="@+id/logout8"
         android:layout_width="129dp"
         android:layout_height="26dp"
         android:drawableLeft="@drawable/ic_baseline_arrow_back_ios_24"
-        android:onClick="popOutLogout"
-        android:text="@string/welcome_main_page"
+        android:onClick="goBack"
+        android:text="Perfil"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -50,84 +81,6 @@
         app:layout_constraintVertical_bias="0.026"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="199dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="76dp"
-        android:text="John Smith"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnReports"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_weight="1"
-        android:onClick="reportingPage"
-        android:text="@string/analytics"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRol" />
-
-    <Button
-        android:id="@+id/btnCheckIn"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_weight="1"
-        android:onClick="checkInMenu"
-        android:text="Realizar Check In"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRol" />
-
-    <Button
-        android:id="@+id/btnStaff"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="36dp"
-        android:layout_weight="1"
-        android:onClick="employeePage"
-        android:text="@string/employees"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReports" />
-
-    <Button
-        android:id="@+id/btnCheckOut"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="150dp"
-        android:layout_weight="1"
-        android:onClick="checkOutMenu"
-        android:text="Realizar Check Out"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReports" />
-
-    <Button
-        android:id="@+id/btnCustomers"
-        android:layout_width="320dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_weight="1"
-        android:onClick="customersPage"
-        android:text="@string/client"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnStaff" />
-
     <LinearLayout
         android:id="@+id/administratorsMenus"
         android:layout_width="0dp"
@@ -137,7 +90,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddEXServices"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,7 +132,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_weight="1"
-                android:onClick="extraServicesMenu"
                 app:srcCompat="@drawable/ic_baseline_commute_24"
                 tools:ignore="SpeakableTextPresentCheck" />
 
@@ -205,9 +159,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
                 android:layout_weight="1"
-                android:onClick="profileMenu"
-                app:srcCompat="@drawable/ic_baseline_account_circle_24"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -223,18 +175,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/txtRol"
-        android:layout_width="300dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Administrador"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
