@@ -31,6 +31,7 @@ import com.example.turismoreal.administrator.Users;
 import com.example.turismoreal.administrator.DepartmentPage;
 import com.example.turismoreal.administrator.ExtraServicePage;
 import com.example.turismoreal.models.CustomError;
+import com.example.turismoreal.staff.ChangePassword;
 import com.example.turismoreal.staff.CheckInMenu;
 import com.example.turismoreal.staff.CheckOutMenu;
 import com.google.gson.Gson;
@@ -40,7 +41,7 @@ public class LandingPage extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private TextView logutMessage, userRol, fullName;
-    private Button yes, no, btnReports, btnStaff, btnCustomers, btnCheckIn, btnCheckOut;
+    private Button yes, no, btnReports, btnStaff, btnCustomers, btnCheckIn, btnCheckOut,changePassword;
     private ImageView adminIcon, staffIcon;
     private LinearLayout administratorsMenus;
     private Integer user_id = 0;
@@ -58,6 +59,7 @@ public class LandingPage extends AppCompatActivity {
         btnCustomers = findViewById(R.id.btnCustomers);
         btnCheckIn = findViewById(R.id.btnCheckIn);
         btnCheckOut = findViewById(R.id.btnCheckOut);
+        changePassword = findViewById(R.id.changePassword);
 
 
         SharedPreferences preferences = getSharedPreferences("current_session", Context.MODE_PRIVATE);
@@ -86,7 +88,13 @@ public class LandingPage extends AppCompatActivity {
             staffIcon.setVisibility(View.VISIBLE);
             btnCheckIn.setVisibility(View.VISIBLE);
             btnCheckOut.setVisibility(View.VISIBLE);
+            changePassword.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void changePassword(View view){
+        Intent i = new Intent(this, ChangePassword.class);
+        startActivity(i);
     }
 
     public void popOutLogout(View view){

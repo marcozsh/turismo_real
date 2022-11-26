@@ -9,4 +9,10 @@ import retrofit2.http.POST;
 public interface UserServices {
     @POST("users/")
     Call<ResponseBody> getUsers(@Body RequestBody requestBody);
+
+    @POST("employee/add/")
+    Call<ResponseBody> addEmployee(@Body RequestBody requestBody);
+
+    @POST("employee/update_password/")
+    Call<ResponseBody> updatePassword(@Body RequestBody requestBody);
 }

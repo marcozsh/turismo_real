@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 //sql imports
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 
 //login interface
 import com.example.turismoreal.Services.LoginService;
@@ -65,6 +67,12 @@ public class Login extends AppCompatActivity {
         editor.commit();
     }
 
+    public static String MD5(String s) throws Exception {
+        MessageDigest m=MessageDigest.getInstance("MD5");
+        m.update(s.getBytes(),0,s.length());
+        return new BigInteger(1,m.digest()).toString(16);
+    }
+
     public void login(View view){
 
         String username = user.getText().toString().trim();
@@ -77,7 +85,7 @@ public class Login extends AppCompatActivity {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 LoginService loginService = retrofit.create(LoginService.class);
-                String jsonData = "{\"login\":2,\"username\":\""+username+"\",\"password\":\""+pass+"\"}";
+                String jsonData = "{\"login\":2,\"username\":\""+username+"\",\"password\":\""+MD5(pass)+"\"}";
                 RequestBody requestBody = RequestBody.create(MediaType.parse("aplication/json"), jsonData);
                 loginService.login(requestBody).enqueue(new Callback<ResponseBody>() {
                     @Override

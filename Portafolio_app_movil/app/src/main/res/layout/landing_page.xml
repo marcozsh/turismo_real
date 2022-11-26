@@ -117,6 +117,19 @@
         app:layout_constraintTop_toBottomOf="@+id/btnReports" />
 
     <Button
+        android:id="@+id/changePassword"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="44dp"
+        android:layout_weight="1"
+        android:onClick="changePassword"
+        android:text="Cambiar contraseña"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCheckOut" />
+
+    <Button
         android:id="@+id/btnCustomers"
         android:layout_width="320dp"
         android:layout_height="50dp"
@@ -124,6 +137,7 @@
         android:layout_weight="1"
         android:onClick="customersPage"
         android:text="@string/client"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnStaff" />

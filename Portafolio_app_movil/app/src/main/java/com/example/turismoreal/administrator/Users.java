@@ -72,6 +72,7 @@ public class Users extends AppCompatActivity {
     }
 
 
+
     public void all_customers(int userType) {
         principalLayout.removeAllViews();
         dialogBuilder = new AlertDialog.Builder(this);
@@ -202,6 +203,10 @@ public class Users extends AppCompatActivity {
         }
     }
 
+    public void addEmployee(View view){
+        Intent i = new Intent(this, AddEmployee.class);
+        startActivity(i);
+    }
 
 
     public void goBack(View view){

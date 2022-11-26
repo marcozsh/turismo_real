@@ -8,6 +8,24 @@
     tools:context=".administrator.Users">
 
     <TextView
+        android:id="@+id/btnAddDepartment2"
+        android:layout_width="249dp"
+        android:layout_height="32dp"
+        android:foregroundTint="#0090FF"
+        android:onClick="addEmployee"
+        android:text="+ AGREGAR EMPLEADO"
+        android:textAlignment="center"
+        android:textColor="#0090FF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.944"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
         android:id="@+id/userGoBack"
         android:layout_width="160dp"
         android:layout_height="33dp"
@@ -27,14 +45,15 @@
 
     <ScrollView
         android:id="@+id/customersScrollView"
-        android:layout_width="343dp"
+        android:layout_width="327dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddDepartment2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userGoBack"
-        app:layout_constraintVertical_bias="0.414"
+        app:layout_constraintVertical_bias="0.785"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
